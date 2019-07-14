@@ -386,18 +386,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3388691922300568106}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &656419881 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3388691921845497347, guid: 5166216de1f233f4d89799fcbf82967f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3388691922300568106}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8df9c0c8512ff949a8340cb64ef1773, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &842835832
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,21 +674,6 @@ PrefabInstance:
       propertyPath: gameEngine
       value: 
       objectReference: {fileID: 601831007}
-    - target: {fileID: 7424248148847623244, guid: 5166216de1f233f4d89799fcbf82967f,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 656419881}
-    - target: {fileID: 7424248148847623244, guid: 5166216de1f233f4d89799fcbf82967f,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HandleButtonClicked
-      objectReference: {fileID: 0}
-    - target: {fileID: 7424248148847623244, guid: 5166216de1f233f4d89799fcbf82967f,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5166216de1f233f4d89799fcbf82967f, type: 3}
 --- !u!1001 &3447547822474969684
