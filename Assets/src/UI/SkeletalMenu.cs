@@ -14,5 +14,8 @@ public class SkeletalMenu : MonoBehaviour
 
         Debug.Log("UI: Sending a message to the Game Engine. Please get player score.");
         gameEngine.UIRequestPlayerScore();
+
+        Debug.Log("UI: Sending a message to the Game Engine. Please get the question Math for 200.");
+        gameEngine.UIRequestQuestion();
     }
 }
