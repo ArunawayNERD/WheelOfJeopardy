@@ -19,11 +19,14 @@ public class PlayerScoring : MonoBehaviour
         
     }
 
-    public int GetPlayerScores(){
+    public int GetPlayerScores()
+    {
+        Debug.Log("Player Scoring: Got your message, sending you player score now.");
         return playerScore;
     }
 
     public void UpdatePlayerScore(int scoreAdjustment){
         playerScore += scoreAdjustment;
+        Debug.Log("Player Scoring: Player score is " + this.GetPlayerScores());
     }
 }
