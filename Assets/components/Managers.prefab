@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8398d5718c86fb14fb40990e2cbfdb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScoring: {fileID: 7647866532021019743}
+  playerScoring: {fileID: 1274120691537752878}
 --- !u!1 &3447547823533500156
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3447547823533500157}
-  - component: {fileID: 7647866532021019743}
+  - component: {fileID: 1274120691537752878}
   m_Layer: 0
   m_Name: PlayerScoring
   m_TagString: Untagged
@@ -108,7 +108,7 @@ Transform:
   m_Father: {fileID: 3447547822414470340}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7647866532021019743
+--- !u!114 &1274120691537752878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
