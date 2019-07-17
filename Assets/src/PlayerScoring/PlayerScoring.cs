@@ -21,7 +21,7 @@ public class PlayerScoring : MonoBehaviour
 
     public int GetPlayerScores()
     {
-        Debug.Log("Player Scoring: Got your message, sending you player score now.");
+        Debug.Log("Player Scoring: Got your message, sending you the player score now.");
         return playerScore;
     }
 

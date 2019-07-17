@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameEngine : MonoBehaviour
 {
     public PlayerScoring playerScoring;
+    public QuestionStore questionStore;
     private int score;
     // Start is called before the first frame update
     void Start()
@@ -31,5 +32,12 @@ public class GameEngine : MonoBehaviour
         Debug.Log("Game Engine: Got your message, getting player score now.");
         score = playerScoring.GetPlayerScores();
         Debug.Log("Game Engine: Received player score: "+ score);
+    }
+
+    public void UIRequestQuestion()
+    {
+        Debug.Log("Game Engine: Got your message, getting a question");
+        string[] questionAnswer = questionStore.getQuestion("Math", 200);
+        Debug.Log("Game Engine: The question is \"" + questionAnswer[0] + "\" with answer \"" + questionAnswer[1] + "\"");
     }
 }
