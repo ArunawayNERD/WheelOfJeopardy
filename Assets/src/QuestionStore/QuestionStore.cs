@@ -51,26 +51,18 @@ public class QuestionStore : MonoBehaviour
                 //We havnt run into this key yet so add its nested dict and update the sectors
                 if (!questions.ContainsKey(category))
                 {
-                    //sectors[catCount].text = category;
-                    //catCount++;
+                    sectors[catCount].text = category;
+                    catCount++;
 
                     Debug.Log(category);
                     questions.Add(category, new Dictionary<int, Question>());
                 }
 
                 int score = int.Parse(guestionData[SCORE_INDEX]);
-
-            
                 string questionText = guestionData[QUESTION_INDEX];
                 string answer = guestionData[ANSWER_INDEX];
 
-                //Debug.Log(score);
-                //Debug.Log(questionText);
-                //Debug.Log(answer);
-
                 questions[category].Add(score, new Question(questionText, answer, score, category));
-                //Debug.Log(questions.ContainsKey(category));
-                //Debug.Log(questions[category].ContainsKey(score));
             }
 
         }
