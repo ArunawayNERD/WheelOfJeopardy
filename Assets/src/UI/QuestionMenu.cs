@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class QuestionMenu : MonoBehaviour
 {
+    public GameEngine gameEngine;
     public GameObject menuGraphics;
 
-    public Text title;
-	public Text displayText;
+    public TextMeshProUGUI title;
+	public TextMeshProUGUI displayText;
 
 	public Button showAnswer;
     public Button correct;
     public Button incorrect;
+
+    private Question selectedQuestion;
 
 
     // Start is called before the first frame update
@@ -21,34 +25,70 @@ public class QuestionMenu : MonoBehaviour
         this.ResetMenu();
     }
 
-    // Update is called once per frame
-    void Update()
+	public void UpdateVisability(bool show)
     {
-        
-    }
-
-	public void ToggleVisible(bool show) {
 		this.menuGraphics.SetActive(show);
 	}
 
-	private void ResetMenu() {
-        this.displayText.text = "Question";
+    public void ReceiveQuestion(Question selected)
+    {
+        this.selectedQuestion = selectedQuestion;
+        UpdateVisability(true);
+    }
+
+    public void HandleShowAnswerClicked()
+    {
+        this.SwitchToAnswerMode();
+    }
+
+    public void HandleAnswerClicked(bool correct)
+    {
+        //Call game Engine method
+
+        UpdateVisability(false);
+    }
+
+
+
+    public void HandleAnswerClicked()
+    {
+
+    }
+
+	private void ResetMenu()
+    {
+        this.title.SetText("Question");
+
+        if(this.selectedQuestion != null)
+        {
+            this.displayText.SetText(selectedQuestion.title);
+        }
+        else
+        {
+            this.displayText.SetText("");
+        }
+
 
         this.showAnswer.gameObject.SetActive(true);
         this.correct.gameObject.SetActive(false);
         this.incorrect.gameObject.SetActive(false);
-
-
     }
 
     private void SwitchToAnswerMode()
     {
-        this.displayText.text = "Question";
+        this.title.SetText("Answer");
 
-        this.showAnswer.gameObject.SetActive(true);
-        this.correct.gameObject.SetActive(false);
-        this.incorrect.gameObject.SetActive(false);
+        if (this.selectedQuestion != null)
+        {
+            this.displayText.SetText(selectedQuestion.answer);
+        }
+        else
+        {
+            this.displayText.SetText("");
+        }
+
+        this.showAnswer.gameObject.SetActive(false);
+        this.correct.gameObject.SetActive(true);
+        this.incorrect.gameObject.SetActive(true);
     }
-
-
 }
