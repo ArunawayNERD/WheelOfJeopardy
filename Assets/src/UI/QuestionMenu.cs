@@ -26,7 +26,7 @@ public class QuestionMenu : MonoBehaviour
     }
 
 	public void UpdateVisability(bool show)
-    {
+	{
 		this.menuGraphics.SetActive(show);
 	}
 
