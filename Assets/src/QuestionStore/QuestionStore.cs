@@ -54,7 +54,6 @@ public class QuestionStore : MonoBehaviour
                     sectors[catCount].text = category;
                     catCount++;
 
-                    Debug.Log(category);
                     questions.Add(category, new Dictionary<int, Question>());
                 }
 
