@@ -32,7 +32,8 @@ public class QuestionMenu : MonoBehaviour
 
     public void ReceiveQuestion(Question selected)
     {
-        this.selectedQuestion = selectedQuestion;
+        this.selectedQuestion = selected;
+        this.ResetMenu();
         UpdateVisability(true);
     }
 
@@ -43,8 +44,7 @@ public class QuestionMenu : MonoBehaviour
 
     public void HandleAnswerClicked(bool correct)
     {
-        //Call game Engine method
-
+        gameEngine.questionAnswered(correct);
         UpdateVisability(false);
     }
 
@@ -61,7 +61,7 @@ public class QuestionMenu : MonoBehaviour
 
         if(this.selectedQuestion != null)
         {
-            this.displayText.SetText(selectedQuestion.title);
+            this.displayText.SetText(selectedQuestion.question);
         }
         else
         {
