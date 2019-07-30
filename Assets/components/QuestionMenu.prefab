@@ -206,6 +206,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587d7810362856c45b7469a7bc8afbeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEngine: {fileID: 0}
+  menuGraphics: {fileID: 8185333775180642272}
+  title: {fileID: 8185333773525684089}
+  displayText: {fileID: 8185333774211253020}
+  showAnswer: {fileID: 8185333774157287124}
+  correct: {fileID: 8185333774914383298}
+  incorrect: {fileID: 8185333774099240773}
 --- !u!1 &8185333774099240771
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,9 +332,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: HandleButtonClicked
-        m_Mode: 1
+      - m_Target: {fileID: 8185333773596824657}
+        m_MethodName: HandleAnswerClicked
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -457,8 +464,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: HandleButtonClicked
+      - m_Target: {fileID: 8185333773596824657}
+        m_MethodName: HandleShowAnswerClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -903,16 +910,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: HandleButtonClicked
-        m_Mode: 1
+      - m_Target: {fileID: 8185333773596824657}
+        m_MethodName: HandleAnswerClicked
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
