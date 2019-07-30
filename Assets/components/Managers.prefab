@@ -78,6 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScoring: {fileID: 1274120691537752878}
   questionStore: {fileID: 3447547822474969686}
+  questionMenu: {fileID: 0}
 --- !u!1 &3447547823533500156
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,3 +165,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9682d9525b8b52346a2593376765000f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sector: {fileID: 0}
+  sector1: {fileID: 0}
+  sector2: {fileID: 0}
+  sector3: {fileID: 0}
+  sector4: {fileID: 0}
+  sector5: {fileID: 0}
+  sector6: {fileID: 0}
+  sector7: {fileID: 0}
+  sector8: {fileID: 0}
+  sector9: {fileID: 0}
+  sector10: {fileID: 0}
+  sector11: {fileID: 0}

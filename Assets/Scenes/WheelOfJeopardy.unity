@@ -200,6 +200,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6050434031941321783}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &143908512 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8185333773596824657, guid: 9dfe8341bbc85a44c9f3f7f63cc4fca5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8185333775428122313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587d7810362856c45b7469a7bc8afbeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &200699972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,20 +1669,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
-    - target: {fileID: 3388691921845497357, guid: 5166216de1f233f4d89799fcbf82967f,
+    - target: {fileID: 3447547822414470340, guid: 50452a6c485e9d44e99ac52440ac36f3,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3447547822414470340, guid: 50452a6c485e9d44e99ac52440ac36f3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 185.64258
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3447547822414470340, guid: 50452a6c485e9d44e99ac52440ac36f3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 297.59576
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3447547822414470340, guid: 50452a6c485e9d44e99ac52440ac36f3,
         type: 3}
@@ -1712,11 +1724,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3388691921845497346, guid: 5166216de1f233f4d89799fcbf82967f,
+    - target: {fileID: 3447547823050322955, guid: 50452a6c485e9d44e99ac52440ac36f3,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 566.97546
-      objectReference: {fileID: 0}
+      propertyPath: questionMenu
+      value: 
+      objectReference: {fileID: 143908512}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50452a6c485e9d44e99ac52440ac36f3, type: 3}
 --- !u!1001 &6050434031941321783
