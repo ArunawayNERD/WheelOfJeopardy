@@ -1,3 +1,7 @@
-After the categories, the point values start at 100 and increase by 100 each line. separate question and answer by '='
-Math,Science,Books,CS,EG,Random
-2+2=4,C stands for?=Carbon,Who wrote Frankenstein?=Mary Shelly,Is C# cool?=not really,F is equal to?=ma,7+7=14
+Each line represents a question in to format "Category, Question, Answer, Score"
+Math, 2+2, 4, 200
+Science, C stands for?, Carbon, 200
+Books, Who wrote Frankenstein?, Mary Shelly, 200
+CS, Is C# cool?, not really, 200
+EG, F is equal to?, ma, 200
+Random, 7+7, 14, 200
