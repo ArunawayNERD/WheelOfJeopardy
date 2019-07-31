@@ -6,38 +6,27 @@ public class GameEngine : MonoBehaviour
 {
     public PlayerScoring playerScoring;
     public QuestionStore questionStore;
-    private int score;
-    // Start is called before the first frame update
+
+    public QuestionMenu questionMenu;
+
     void Start()
     {
-        //Debug.Log("Game Engine: Adding 200 points to the player");
-        playerScoring.UpdatePlayerScore(200);
-        //Debug.Log("Game Engine: Removing 400 points from the player");
-        playerScoring.UpdatePlayerScore(-400);
+        //Place holder untill we have the whole loop
+        Question testQuestion = this.questionStore.getQuestion("Books", 200);
+
+        this.questionMenu.ReceiveQuestion(testQuestion);        
     }
 
-    // Update is called once per frame
-    void Update()
+    public void questionAnswered(bool correct)
     {
-
-    }
-
-    public void UIRequestMessage()
-    {
-        //Debug.Log("Game Engine: Got your message UI");
-    }
-
-    public void UIRequestPlayerScore()
-    {
-        //Debug.Log("Game Engine: Got your message, getting player score now.");
-        score = playerScoring.GetPlayerScores();
-        //Debug.Log("Game Engine: Received player score: "+ score);
-    }
-
-    public void UIRequestQuestion()
-    {
-        //Debug.Log("Game Engine: Got your message, getting a question");
-        string[] questionAnswer = questionStore.getQuestion("Math", 200);
-        //Debug.Log("Game Engine: The question is \"" + questionAnswer[0] + "\" with answer \"" + questionAnswer[1] + "\"");
+        //For now print strings but when its built update the player store
+        if(correct)
+        {
+            Debug.Log("Answer was correct");
+        }
+        else
+        {
+            Debug.Log("Answer was incorrect");
+        }
     }
 }
