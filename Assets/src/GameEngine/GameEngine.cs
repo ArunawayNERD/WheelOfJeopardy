@@ -17,6 +17,12 @@ public class GameEngine : MonoBehaviour
         this.questionMenu.ReceiveQuestion(testQuestion);        
     }
 
+    public void InitializePlayers()
+    {
+
+        playerScoring.InitializePlayers();
+    }
+
     public void questionAnswered(bool correct)
     {
         //For now print strings but when its built update the player store

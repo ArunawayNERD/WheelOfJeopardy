@@ -24,6 +24,12 @@ public class PlayerScoring : MonoBehaviour
         
     }
 
+    public void InitializePlayers()
+    {
+
+        Debug.Log("Player Scoring, mama we made it");
+    }
+
     public int GetPlayerScore(int playerNum)
     {
         //Debug.Log("Player Scoring: Got your message, sending you the player score now.");
