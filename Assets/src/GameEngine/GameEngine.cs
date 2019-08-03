@@ -1,18 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameEngine : MonoBehaviour
 {
     public PlayerScoring playerScoring;
     public QuestionStore questionStore;
-
     public QuestionMenu questionMenu;
-
     public QuestionBoard board;
+    public Text currentRound;
+    public Text spinsLeft;
+    public Text currentPlayer;
 
     void Start()
     {
+    	//Populate the round counter and spin counter
+    	this.currentRound.text = "1";
+    	this.spinsLeft.text = "50";
+
         //Place holder untill we have the whole loop
         Question testQuestion = this.questionStore.getQuestion("Books", 200);
 
