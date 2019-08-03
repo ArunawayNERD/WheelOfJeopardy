@@ -6,8 +6,10 @@ using System.Linq;
 
 public class QuestionStore : MonoBehaviour
 {   
-	public Text sector, sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8, sector9, sector10, sector11; 
+	public Text sector, sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8, sector9, sector10, sector11;
+
     private Dictionary<string, Dictionary<int, Question>> questions;
+    private Dictionary<string,int> questionsAnswered;
 
     private const int CATEGORY_INDEX = 0;
     private const int QUESTION_INDEX = 1;
@@ -16,11 +18,12 @@ public class QuestionStore : MonoBehaviour
 
     void Awake()
     {
-    	Dictionary<int, string[]> skeletalQuestions = new Dictionary<int, string[]>();
     	questions = new Dictionary<string, Dictionary<int, Question>>();
-    	//List<Question> qStore = new List<Question>();
-    	//List<Category> catStore = new List<Category>();
-    	List<Text> sectors = new List<Text>();
+        questionsAnswered = new Dictionary<string, int>();
+
+        //List<Question> qStore = new List<Question>();
+        //List<Category> catStore = new List<Category>();
+        List<Text> sectors = new List<Text>();
     	sectors.Add(sector);
     	sectors.Add(sector1);
     	sectors.Add(sector2);
@@ -55,6 +58,7 @@ public class QuestionStore : MonoBehaviour
                     catCount++;
 
                     questions.Add(category, new Dictionary<int, Question>());
+                    questionsAnswered.Add(category, 0);
                 }
 
                 int score = int.Parse(guestionData[SCORE_INDEX]);
@@ -86,13 +90,13 @@ public class QuestionStore : MonoBehaviour
         sectors[10].text = "Opponent's choice";
         sectors[11].text = "Double your Score";
 
-        //Debug.Log(catStore[0].getQuestion().Count);
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -107,6 +111,13 @@ public class QuestionStore : MonoBehaviour
 
     public Question getQuestion(string category, int pointValue){
         Debug.Log("Question Store: Getting question " + category + " for " + pointValue);
+
+        this.questionsAnswered[category] = this.questionsAnswered[category] + 1;
         return  this.questions[category][pointValue];
+    }
+
+    public Dictionary<string, int> getQuestionsAnswered()
+    {
+        return this.questionsAnswered;
     }
 }

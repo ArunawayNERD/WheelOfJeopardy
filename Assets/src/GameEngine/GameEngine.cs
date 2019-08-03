@@ -9,12 +9,28 @@ public class GameEngine : MonoBehaviour
 
     public QuestionMenu questionMenu;
 
+    public QuestionBoard board;
+
     void Start()
     {
         //Place holder untill we have the whole loop
         Question testQuestion = this.questionStore.getQuestion("Books", 200);
 
-        this.questionMenu.ReceiveQuestion(testQuestion);        
+        this.questionMenu.ReceiveQuestion(testQuestion);
+    }
+
+    private void Update()
+    {
+        this.board.ReceiveQuestionAnswered(this.questionStore.getQuestionsAnswered());
+    }
+
+    public void categorySelected(int categoryIndex)
+    {
+        string category = this.getQuestionCategories()[categoryIndex];
+        int answered = this.questionStore.getQuestionsAnswered()[category];
+
+        Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
+        this.questionMenu.ReceiveQuestion(nextQuestion);
     }
 
     public void questionAnswered(bool correct)
@@ -28,5 +44,10 @@ public class GameEngine : MonoBehaviour
         {
             Debug.Log("Answer was incorrect");
         }
+    }
+
+    public string[] getQuestionCategories()
+    {
+        return questionStore.getCategories();
     }
 }
