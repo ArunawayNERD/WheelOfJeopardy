@@ -48,13 +48,6 @@ public class QuestionMenu : MonoBehaviour
         UpdateVisability(false);
     }
 
-
-
-    public void HandleAnswerClicked()
-    {
-
-    }
-
 	private void ResetMenu()
     {
         this.title.SetText("Question");

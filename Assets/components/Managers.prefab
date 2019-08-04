@@ -79,6 +79,7 @@ MonoBehaviour:
   playerScoring: {fileID: 1274120691537752878}
   questionStore: {fileID: 3447547822474969686}
   questionMenu: {fileID: 0}
+  board: {fileID: 0}
 --- !u!1 &3447547823533500156
 GameObject:
   m_ObjectHideFlags: 0
