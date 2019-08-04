@@ -13,6 +13,10 @@ public class GameEngine : MonoBehaviour
     public Text spinsLeft;
     public Text currentPlayer;
 
+    private Wheely wheel;
+
+    public Wheely Wheel { get => wheel; set => wheel = value; }
+
     void Start()
     {
     	//Populate the round counter and spin counter
@@ -30,9 +34,10 @@ public class GameEngine : MonoBehaviour
         this.board.ReceiveQuestionAnswered(this.questionStore.getQuestionsAnswered());
     }
 
-    public void categorySelected(int categoryIndex)
+    public void CategorySelected(string category)
     {
-        string category = this.getQuestionCategories()[categoryIndex];
+        //string category = this.getQuestionCategories()[categoryIndex];
+        //TODO convert category string to index for this method, or change the method
         int answered = this.questionStore.getQuestionsAnswered()[category];
 
         Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
@@ -55,5 +60,13 @@ public class GameEngine : MonoBehaviour
     public string[] getQuestionCategories()
     {
         return questionStore.getCategories();
+    }
+
+    public void SectorLandedOn(Sector sector)
+    {
+        if (sector.Name == "category")
+        {
+            this.CategorySelected(sector.Name);
+        }
     }
 }
