@@ -44,7 +44,8 @@ public class QuestionMenu : MonoBehaviour
 
     public void HandleAnswerClicked(bool correct)
     {
-        gameEngine.questionAnswered(correct);
+
+        gameEngine.questionAnswered(this.selectedQuestion.points, correct);
         UpdateVisability(false);
     }
 

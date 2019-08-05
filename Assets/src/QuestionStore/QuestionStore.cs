@@ -23,19 +23,7 @@ public class QuestionStore : MonoBehaviour
 
         //List<Question> qStore = new List<Question>();
         //List<Category> catStore = new List<Category>();
-        List<Text> sectors = new List<Text>();
-    	sectors.Add(sector);
-    	sectors.Add(sector1);
-    	sectors.Add(sector2);
-    	sectors.Add(sector3);
-    	sectors.Add(sector4);
-    	sectors.Add(sector5);
-    	sectors.Add(sector6);
-    	sectors.Add(sector7);
-    	sectors.Add(sector8);
-    	sectors.Add(sector9);
-    	sectors.Add(sector10);
-    	sectors.Add(sector11);
+
 		string[] cats;
 		
     	TextAsset userInput = Resources.Load<TextAsset>("QuestionData");
@@ -54,7 +42,6 @@ public class QuestionStore : MonoBehaviour
                 //We havnt run into this key yet so add its nested dict and update the sectors
                 if (!questions.ContainsKey(category))
                 {
-                    sectors[catCount].text = category;
                     catCount++;
 
                     questions.Add(category, new Dictionary<int, Question>());
@@ -83,12 +70,6 @@ public class QuestionStore : MonoBehaviour
         //		//Debug.Log(data[row]);   			
         //	}
         //}
-        sectors[6].text = "Lose turn";
-        sectors[7].text = "Free turn";
-        sectors[8].text = "Bankrupt";
-        sectors[9].text = "Player's choice";
-        sectors[10].text = "Opponent's choice";
-        sectors[11].text = "Double your Score";
 
         
     }
