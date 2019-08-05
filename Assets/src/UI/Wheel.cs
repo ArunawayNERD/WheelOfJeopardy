@@ -17,8 +17,8 @@ public class Wheel : MonoBehaviour
 
     void Awake()
     {
+        questions = new Dictionary<string, Dictionary<int, Question>>();
         sectorObjs = new Sector[12];
-
         List<Text> sectors = new List<Text>();
         sectors.Add(sector);
         sectors.Add(sector1);
@@ -51,8 +51,7 @@ public class Wheel : MonoBehaviour
                 if (!questions.ContainsKey(category))
                 {
                     sectors[catCount].text = category;
-                    sectorObjs[catCount].Name = category;
-                    sectorObjs[catCount].Type = "Category";
+                    sectorObjs[catCount] = new Sector(category, "Category");
                     catCount++;
 
                     questions.Add(category, new Dictionary<int, Question>());
@@ -61,23 +60,17 @@ public class Wheel : MonoBehaviour
         }
 
         sectors[6].text = "Lose turn";
-        sectorObjs[6].Name = "Lose turn";
-        sectorObjs[6].Type = "Non-category";
+        sectorObjs[6] = new Sector("Lose turn", "Non-category");
         sectors[7].text = "Free turn";
-        sectorObjs[7].Name = "Free turn";
-        sectorObjs[7].Type = "Non-category";
+        sectorObjs[7] = new Sector("Free turn", "Non-category");
         sectors[8].text = "Bankrupt";
-        sectorObjs[8].Name = "Bankrupt";
-        sectorObjs[8].Type = "Non-category";
+        sectorObjs[8] = new Sector("Bankrupt", "Non-category");
         sectors[9].text = "Player's choice";
-        sectorObjs[9].Name = "Player's choice";
-        sectorObjs[9].Type = "Non-category";
+        sectorObjs[9] = new Sector("Player's choice", "Non-category");
         sectors[10].text = "Opponent's choice";
-        sectorObjs[10].Name = "Opponent's choice";
-        sectorObjs[10].Type = "Non-category";
+        sectorObjs[10] = new Sector("Opponent's choice", "Non-category");
         sectors[11].text = "Double your Score";
-        sectorObjs[11].Name = "Double your Score";
-        sectorObjs[11].Type = "Non-category";
+        sectorObjs[11] = new Sector("Double your Score", "Non-category");
     }
 
     internal string GetCategory(int categIndex)
