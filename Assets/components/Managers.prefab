@@ -80,6 +80,9 @@ MonoBehaviour:
   questionStore: {fileID: 3447547822474969686}
   questionMenu: {fileID: 0}
   board: {fileID: 0}
+  currentRound: {fileID: 0}
+  spinsLeft: {fileID: 0}
+  currentPlayer: {fileID: 0}
 --- !u!1 &3447547823533500156
 GameObject:
   m_ObjectHideFlags: 0

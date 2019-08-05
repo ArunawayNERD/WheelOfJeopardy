@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameEngine : MonoBehaviour
 {
@@ -10,9 +11,9 @@ public class GameEngine : MonoBehaviour
     public QuestionStore questionStore;
     public QuestionMenu questionMenu;
     public QuestionBoard board;
-    public Text currentRound;
-    public Text spinsLeft;
-    public Text currentPlayer;
+    public TextMeshProUGUI currentRound;
+    public TextMeshProUGUI spinsLeft;
+    public TextMeshProUGUI currentPlayer;
 
     private Wheel wheel;
     private int currentRoundNum;
@@ -24,8 +25,8 @@ public class GameEngine : MonoBehaviour
     void Start()
     {
     	//Populate the round counter and spin counter
-    	this.currentRound.text = "1";
-    	this.spinsLeft.text = "50";
+    	this.currentRound.SetText("1");
+    	this.spinsLeft.SetText("50");
         this.currentRoundNum = 1;
 
         //Place holder untill we have the whole loop
@@ -37,9 +38,9 @@ public class GameEngine : MonoBehaviour
     private void Update()
     {
         // Make sure the current round field is always correct.
-        currentRound.text = currentRound.ToString();
+        currentRound.SetText(currentRoundNum.ToString());
         // Make sure the current player field always has the current player's name.
-        currentPlayer.text = playerScoring.ActivePlayer.Name;
+        currentPlayer.SetText(playerScoring.ActivePlayer.Name);
         this.board.ReceiveQuestionAnswered(this.questionStore.getQuestionsAnswered());
     }
 
