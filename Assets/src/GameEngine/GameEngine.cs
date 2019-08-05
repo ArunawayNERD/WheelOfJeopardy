@@ -13,9 +13,9 @@ public class GameEngine : MonoBehaviour
     public Text spinsLeft;
     public Text currentPlayer;
 
-    private Wheely wheel;
+    private Wheel wheel;
 
-    public Wheely Wheel { get => wheel; set => wheel = value; }
+    public Wheel Wheel { get => wheel; set => wheel = value; }
 
     void Start()
     {
@@ -37,7 +37,6 @@ public class GameEngine : MonoBehaviour
     public void CategorySelected(string category)
     {
         //string category = this.getQuestionCategories()[categoryIndex];
-        //TODO convert category string to index for this method, or change the method
         int answered = this.questionStore.getQuestionsAnswered()[category];
 
         Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
@@ -64,9 +63,33 @@ public class GameEngine : MonoBehaviour
 
     public void SectorLandedOn(Sector sector)
     {
-        if (sector.Name == "category")
+        if (sector.Type == "Category")
         {
             this.CategorySelected(sector.Name);
+        }
+        else if (sector.Name == "Lose turn")
+        {
+
+        }
+        else if (sector.Name == "Free turn")
+        {
+
+        }
+        else if (sector.Name == "Bankrupt")
+        {
+
+        }
+        else if (sector.Name == "Player's choice")
+        {
+
+        }
+        else if (sector.Name == "Opponent's choice")
+        {
+
+        }
+        else if (sector.Name == "Double your score")
+        {
+
         }
     }
 }

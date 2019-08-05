@@ -10,7 +10,7 @@ public class QuestionBoard : MonoBehaviour
 
     public TextMeshProUGUI[] headers;
     public Button[] catButtons;
-    private Wheely wheel;
+    private Wheel wheel;
 
     //probably not the best way to do this but speed over the best code atm
     public TextMeshProUGUI[] catOneTexts;
@@ -54,6 +54,7 @@ public class QuestionBoard : MonoBehaviour
     }
 
     // We only need this if the player is allowed to choose their own category.
+    // NOTE: In Unity, Wheel indices for categories must match QuestionBoard indices for categories.
     public void HandleCategoryClicked(int categIndex)
     {
         string categ = wheel.GetCategory(categIndex);
