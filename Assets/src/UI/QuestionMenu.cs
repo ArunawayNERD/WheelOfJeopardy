@@ -15,6 +15,7 @@ public class QuestionMenu : MonoBehaviour
 	public Button showAnswer;
     public Button correct;
     public Button incorrect;
+    public Button showQuestion;
 
     private Question selectedQuestion;
 
@@ -42,18 +43,41 @@ public class QuestionMenu : MonoBehaviour
         this.SwitchToAnswerMode();
     }
 
+    public void HandleShowQuestionClicked()
+    {
+        this.SwitchToQuestionMode();
+    }
+
     public void HandleAnswerClicked(bool correct)
     {
-
         gameEngine.questionAnswered(this.selectedQuestion.points, correct);
         UpdateVisability(false);
     }
 
 	private void ResetMenu()
     {
+        this.title.SetText("Category");
+
+        if (this.selectedQuestion != null)
+        {
+            this.displayText.SetText(selectedQuestion.category);
+        }
+        else
+        {
+            this.displayText.SetText("");
+        }
+
+        this.showAnswer.gameObject.SetActive(false);
+        //this.showQuestion.gameObject.SetActive(true);
+        this.correct.gameObject.SetActive(false);
+        this.incorrect.gameObject.SetActive(false);
+    }
+
+    private void SwitchToQuestionMode()
+    {
         this.title.SetText("Question");
 
-        if(this.selectedQuestion != null)
+        if (this.selectedQuestion != null)
         {
             this.displayText.SetText(selectedQuestion.question);
         }
@@ -61,7 +85,6 @@ public class QuestionMenu : MonoBehaviour
         {
             this.displayText.SetText("");
         }
-
 
         this.showAnswer.gameObject.SetActive(true);
         this.correct.gameObject.SetActive(false);

@@ -15,6 +15,8 @@ public class GameEngine : MonoBehaviour
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
     public List<Sector> sectorList;
+    public GameObject menuGraphics;
+    public Button spinWheelBtn;
 
     private Wheel wheel;
     private int currentRoundNum;
@@ -71,7 +73,9 @@ public class GameEngine : MonoBehaviour
         SectorLandedOn(sectorList[sectIdx]);
         Debug.Log("Next up: " + sectorList[sectIdx].Name + " of type: " + sectorList[sectIdx].Type);
 
-        // then trigger the sector landed on function for the appropriate sector.
+        // make button invisible
+        //this.menuGraphics.SetActive(true);
+        //this.spinWheelBtn.gameObject.SetActive(false);
 
         //Place holder untill we have the whole loop
         Question testQuestion = this.questionStore.getQuestion("Books", 200);
@@ -136,7 +140,9 @@ public class GameEngine : MonoBehaviour
         }
 
         // Move to the next turn.
-        
+        //this.spinWheelBtn.gameObject.SetActive(true);
+
+
     }
 
     private void NextTurn()
