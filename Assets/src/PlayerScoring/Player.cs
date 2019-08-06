@@ -25,12 +25,12 @@ namespace Assets.src.PlayerScoring
 
         public void UseToken()
         {
-
+            tokens -= 1;
         }
 
         public void AddToken()
         {
-
+            tokens += 1;
         }
     }
 }
