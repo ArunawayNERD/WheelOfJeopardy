@@ -121,7 +121,7 @@ public class GameEngine : MonoBehaviour
         else
         {
             // Uh oh wrOng answer you get negative points (unless you use token).
-            // TODO implement token usage option in UI.
+            // TODO: implement token usage option in UI.
             Debug.Log("Answer was incorrect -- giving choice of using token");
             useToken.Display(true, "Question answered", qPts);
             
@@ -172,7 +172,7 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Double your score")
         {
-
+            playerScoring.UpdateActivePlayerScore(2*playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
         }
 
         // Move to the next turn.
