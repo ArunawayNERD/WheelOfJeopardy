@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
@@ -14,6 +14,12 @@ public class Wheel : MonoBehaviour
     private const int CATEGORY_INDEX = 0;
 
     public Sector[] SectorObjs { get => sectorObjs; set => sectorObjs = value; }
+
+    public bool spinning = false;
+
+    private bool stop;
+
+    public float speed = 0; 
 
     void Awake()
     {
@@ -87,6 +93,26 @@ public class Wheel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Rotate();
+    }
+
+    void Rotate() {
+        transform.Rotate(0,0,-speed*Time.deltaTime); 
+        if (spinning == false && speed > 0) {
+            StopSpin();
+        }
+    }
+
+    public void StartSpin() {
+        spinning = true;
+        speed = 600;
+        //instantly start to slow down the wheel
+        spinning = false;
+    }    
+    void StopSpin() {
+        speed--;
+        if (speed <= 0) {
+            speed = 0;
+        }
     }
 }
