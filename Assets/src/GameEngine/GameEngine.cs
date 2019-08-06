@@ -34,12 +34,12 @@ public class GameEngine : MonoBehaviour
 
         // Generate sector list
         sectorList = new List<Sector>();
-        sectorList.Add(new Sector("Double your score", "Other"));
-        sectorList.Add(new Sector("Opponent's choice", "Other"));
-        sectorList.Add(new Sector("Player's choice", "Other"));
-        sectorList.Add(new Sector("Bankrupt", "Other"));
-        sectorList.Add(new Sector("Free turn", "Other"));
-        sectorList.Add(new Sector("Lose turn", "Other"));
+        sectorList.Add(new Sector("Double your score", "Non-category"));
+        sectorList.Add(new Sector("Opponent's choice", "Non-category"));
+        sectorList.Add(new Sector("Player's choice", "Non-category"));
+        sectorList.Add(new Sector("Bankrupt", "Non-category"));
+        sectorList.Add(new Sector("Free turn", "Non-category"));
+        sectorList.Add(new Sector("Lose turn", "Non-category"));
         // add categories to sector list
         string[] cats = this.getQuestionCategories();
         for (int i = 0; i < cats.Length; i++)

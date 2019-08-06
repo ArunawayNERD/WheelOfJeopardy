@@ -16,6 +16,7 @@ public class QuestionMenu : MonoBehaviour
     public Button correct;
     public Button incorrect;
     public Button showQuestion;
+    //public GameObject myButton;
 
     private Question selectedQuestion;
 
@@ -66,9 +67,9 @@ public class QuestionMenu : MonoBehaviour
         {
             this.displayText.SetText("");
         }
-
+        
+        this.showQuestion.gameObject.SetActive(true);
         this.showAnswer.gameObject.SetActive(false);
-        //this.showQuestion.gameObject.SetActive(true);
         this.correct.gameObject.SetActive(false);
         this.incorrect.gameObject.SetActive(false);
     }
@@ -86,6 +87,7 @@ public class QuestionMenu : MonoBehaviour
             this.displayText.SetText("");
         }
 
+        this.showQuestion.gameObject.SetActive(false);
         this.showAnswer.gameObject.SetActive(true);
         this.correct.gameObject.SetActive(false);
         this.incorrect.gameObject.SetActive(false);
