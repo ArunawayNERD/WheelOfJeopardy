@@ -45,6 +45,18 @@ public class PlayerScoring : MonoBehaviour
         return playerScore;
     }
 
+    public int GetActivePlayerScore(int round)
+    {
+        if (round == 1)
+        {
+            return activePlayer.RoundOneScore;
+        }
+        else
+        {
+            return activePlayer.RoundTwoScore;
+        }
+    }
+
     public void UpdateActivePlayerScore(int scoreAdjustment, int round){
         if (round == 1)
         {
