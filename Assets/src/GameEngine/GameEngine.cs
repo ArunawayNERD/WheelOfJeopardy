@@ -70,16 +70,12 @@ public class GameEngine : MonoBehaviour
     {
         // Here randomly choose and notify what sector was landed on
         int sectIdx = Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
-        SectorLandedOn(sectorList[sectIdx]);
         Debug.Log("Next up: " + sectorList[sectIdx].Name + " of type: " + sectorList[sectIdx].Type);
-
-        // make button invisible
-        //this.menuGraphics.SetActive(true);
-        //this.spinWheelBtn.gameObject.SetActive(false);
+        SectorLandedOn(sectorList[sectIdx]);
 
         //Place holder untill we have the whole loop
-        Question testQuestion = this.questionStore.getQuestion("Books", 200);
-        this.questionMenu.ReceiveQuestion(testQuestion);
+        //Question testQuestion = this.questionStore.getQuestion("Books", 200);
+        //this.questionMenu.ReceiveQuestion(testQuestion);
     }
 
     public void questionAnswered(int qPts, bool correct)
@@ -111,6 +107,13 @@ public class GameEngine : MonoBehaviour
     {
         if (sector.Type == "Category")
         {
+            Debug.Log("here");
+            // TODO below statements are necessary but trigger KeyNotFoundException
+            // The statements are triggered when question point value is not 200
+            // Change so that getQuestion only has the sector name and questionStore returns
+            // null if there are no more questions in that category for this round.
+            Question testQuestion = this.questionStore.getQuestion(sector.Name, 200);
+            this.questionMenu.ReceiveQuestion(testQuestion);
             this.CategorySelected(sector.Name);
             this.NextTurn();
         }
@@ -140,8 +143,7 @@ public class GameEngine : MonoBehaviour
         }
 
         // Move to the next turn.
-        //this.spinWheelBtn.gameObject.SetActive(true);
-
+        questionMenu.ResetMenu();
 
     }
 

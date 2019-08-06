@@ -35,9 +35,9 @@ public class QuestionStore : MonoBehaviour
         {
             if(i > 0) //row 0 is header info
             {
-                string[] guestionData = data[i].Split(',');
+                string[] questionData = data[i].Split(',');
 
-                string category = guestionData[CATEGORY_INDEX];
+                string category = questionData[CATEGORY_INDEX];
 
                 //We havnt run into this key yet so add its nested dict and update the sectors
                 if (!questions.ContainsKey(category))
@@ -48,9 +48,9 @@ public class QuestionStore : MonoBehaviour
                     questionsAnswered.Add(category, 0);
                 }
 
-                int score = int.Parse(guestionData[SCORE_INDEX]);
-                string questionText = guestionData[QUESTION_INDEX];
-                string answer = guestionData[ANSWER_INDEX];
+                int score = int.Parse(questionData[SCORE_INDEX]);
+                string questionText = questionData[QUESTION_INDEX];
+                string answer = questionData[ANSWER_INDEX];
 
                 questions[category].Add(score, new Question(questionText, answer, score, category));
             }

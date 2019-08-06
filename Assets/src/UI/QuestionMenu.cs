@@ -55,7 +55,8 @@ public class QuestionMenu : MonoBehaviour
         UpdateVisability(false);
     }
 
-	private void ResetMenu()
+    // this was private, but I changed it to public to call it from GameEngine class
+	public void ResetMenu()
     {
         this.title.SetText("Category");
 
