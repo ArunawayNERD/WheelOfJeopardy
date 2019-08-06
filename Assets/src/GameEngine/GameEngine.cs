@@ -14,6 +14,7 @@ public class GameEngine : MonoBehaviour
     public TextMeshProUGUI currentRound;
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
+    public List<Sector> sectorList;
 
     private Wheel wheel;
     private int currentRoundNum;
@@ -29,10 +30,20 @@ public class GameEngine : MonoBehaviour
     	this.spinsLeft.SetText("50");
         this.currentRoundNum = 1;
 
-        //Place holder untill we have the whole loop
-        Question testQuestion = this.questionStore.getQuestion("Books", 200);
-
-        this.questionMenu.ReceiveQuestion(testQuestion);
+        // Generate sector list
+        sectorList = new List<Sector>();
+        sectorList.Add(new Sector("Double your score", "Other"));
+        sectorList.Add(new Sector("Opponent's choice", "Other"));
+        sectorList.Add(new Sector("Player's choice", "Other"));
+        sectorList.Add(new Sector("Bankrupt", "Other"));
+        sectorList.Add(new Sector("Free turn", "Other"));
+        sectorList.Add(new Sector("Lose turn", "Other"));
+        // add categories to sector list
+        string[] cats = this.getQuestionCategories();
+        for (int i = 0; i < cats.Length; i++)
+        {
+            sectorList.Add(new Sector(cats[i], "Category"));
+        }
     }
 
     private void Update()
@@ -51,6 +62,20 @@ public class GameEngine : MonoBehaviour
 
         Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
         this.questionMenu.ReceiveQuestion(nextQuestion);
+    }
+
+    public void spinWheel()
+    {
+        // Here randomly choose and notify what sector was landed on
+        int sectIdx = Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
+        SectorLandedOn(sectorList[sectIdx]);
+        Debug.Log("Next up: " + sectorList[sectIdx].Name + " of type: " + sectorList[sectIdx].Type);
+
+        // then trigger the sector landed on function for the appropriate sector.
+
+        //Place holder untill we have the whole loop
+        Question testQuestion = this.questionStore.getQuestion("Books", 200);
+        this.questionMenu.ReceiveQuestion(testQuestion);
     }
 
     public void questionAnswered(int qPts, bool correct)
