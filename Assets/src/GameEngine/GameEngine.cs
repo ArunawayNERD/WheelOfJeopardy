@@ -1,6 +1,4 @@
-﻿using Assets.src.PlayerScoring;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -99,7 +97,7 @@ public class GameEngine : MonoBehaviour
     public void spinWheel()
     {
         // Here randomly choose and notify what sector was landed on
-        int sectIdx = Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
+        int sectIdx = UnityEngine.Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
         Debug.Log("Next up: " + sectorList[sectIdx].Name + " of type: " + sectorList[sectIdx].Type);
         SectorLandedOn(sectorList[sectIdx]);
 
@@ -160,7 +158,8 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Bankrupt")
         {
-
+            Debug.Log("Landed on bankrupt sector -- player loses all their points");
+            playerScoring.UpdateActivePlayerScore(-playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
         }
         else if (sector.Name == "Player's choice")
         {
