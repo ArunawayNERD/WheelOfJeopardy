@@ -66,11 +66,10 @@ public class GameEngine : MonoBehaviour
         else
         {
             // Uh oh wrOng answer you get negative points.
+            // TODO implement token usage option in UI.
             playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
             Debug.Log("Answer was incorrect");
         }
-
-        // Switch players.
 
     }
 
@@ -84,6 +83,7 @@ public class GameEngine : MonoBehaviour
         if (sector.Type == "Category")
         {
             this.CategorySelected(sector.Name);
+            this.NextTurn();
         }
         else if (sector.Name == "Lose turn")
         {
@@ -109,5 +109,14 @@ public class GameEngine : MonoBehaviour
         {
 
         }
+
+        // Move to the next turn.
+        
+    }
+
+    private void NextTurn()
+    {
+        playerScoring.NextPlayer();
+        // TODO: CODE TO PROMPT SPINNER BUTTON
     }
 }
