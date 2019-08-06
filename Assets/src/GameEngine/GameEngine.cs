@@ -76,6 +76,33 @@ public class GameEngine : MonoBehaviour
 
     }
 
+    public void tokenUsed(bool used, string invoker, int qPts)
+    {
+        if (used && invoker == "Lose turn")
+        {
+            // Player uses their token to spin wheel again.
+            // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
+            playerScoring.ActivePlayer.UseToken();
+        }
+        else if (!used && invoker == "Lose turn")
+        {
+            // Tough luck, kid.
+            this.NextTurn();
+        }
+        else if (used && invoker == "Question answered")
+        {
+            // Player is bad at this, but wants to keep trying.
+            // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
+            playerScoring.ActivePlayer.UseToken();
+        }
+        else if (!used && invoker == "Question answered")
+        {
+            // Player is bad at this and accepts that they are bad at this.
+            playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
+        }
+
+    }
+
     private void Update()
     {
         // Make sure the current round field is always correct.
