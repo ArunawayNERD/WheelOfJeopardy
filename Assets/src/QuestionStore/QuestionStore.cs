@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class QuestionStore : MonoBehaviour
 {   
@@ -20,11 +21,6 @@ public class QuestionStore : MonoBehaviour
     {
     	questions = new Dictionary<string, Dictionary<int, Question>>();
         questionsAnswered = new Dictionary<string, int>();
-
-        //List<Question> qStore = new List<Question>();
-        //List<Category> catStore = new List<Category>();
-
-		string[] cats;
 		
     	TextAsset userInput = Resources.Load<TextAsset>("QuestionData");
     	string[] data = userInput.text.Split('\n');
@@ -35,43 +31,31 @@ public class QuestionStore : MonoBehaviour
         {
             if(i > 0) //row 0 is header info
             {
-                string[] guestionData = data[i].Split(',');
-
-                string category = guestionData[CATEGORY_INDEX];
-
-                //We havnt run into this key yet so add its nested dict and update the sectors
-                if (!questions.ContainsKey(category))
+                string[] questionData = data[i].Split(',');
+                string category = questionData[CATEGORY_INDEX];
+                if (!category.Equals("")) // just in case extra space at end of csv input file
                 {
-                    catCount++;
 
-                    questions.Add(category, new Dictionary<int, Question>());
-                    questionsAnswered.Add(category, 0);
+                    //We havent run into this key yet so add its nested dict and update the sectors
+                    if (!questions.ContainsKey(category))
+                    {
+                        catCount++;
+                        
+                        questions.Add(category, new Dictionary<int, Question>());
+                        questionsAnswered.Add(category, 0);
+                    }
+                    
+                    int score = int.Parse(questionData[SCORE_INDEX]);
+                    string questionText = questionData[QUESTION_INDEX];
+                    string answer = questionData[ANSWER_INDEX];
+
+
+                    questions[category].Add(score, new Question(questionText, answer, score, category));
                 }
-
-                int score = int.Parse(guestionData[SCORE_INDEX]);
-                string questionText = guestionData[QUESTION_INDEX];
-                string answer = guestionData[ANSWER_INDEX];
-
-                questions[category].Add(score, new Question(questionText, answer, score, category));
             }
 
         }
-
-        //for (int row = 1; row < data.Length - 1; row++) {
-        //	if (row == 1) {		
-        //		//category
-        //		cats = data[row].Split(',');
-        //		for (int j = 0; j < cats.Length; j++) {
-        //			sectors[j].text = cats[j];
-        //			//catStore.Add(new Category(cats[j]));
-        //			//Debug.Log(cats[j]);
-        //		} 
-
-        //		//Debug.Log(data[row]);   			
-        //	}
-        //}
-
-        
+     
     }
 
     // Start is called before the first frame update

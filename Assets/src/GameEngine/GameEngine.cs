@@ -14,6 +14,9 @@ public class GameEngine : MonoBehaviour
     public TextMeshProUGUI currentRound;
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
+    public List<Sector> sectorList;
+    public GameObject menuGraphics;
+    public Button spinWheelBtn;
 
     private Wheel wheel;
     private int currentRoundNum;
@@ -29,10 +32,20 @@ public class GameEngine : MonoBehaviour
     	this.spinsLeft.SetText("50");
         this.currentRoundNum = 1;
 
-        //Place holder untill we have the whole loop
-        Question testQuestion = this.questionStore.getQuestion("Books", 200);
-
-        this.questionMenu.ReceiveQuestion(testQuestion);
+        // Generate sector list
+        sectorList = new List<Sector>();
+        sectorList.Add(new Sector("Double your score", "Non-category"));
+        sectorList.Add(new Sector("Opponent's choice", "Non-category"));
+        sectorList.Add(new Sector("Player's choice", "Non-category"));
+        sectorList.Add(new Sector("Bankrupt", "Non-category"));
+        sectorList.Add(new Sector("Free turn", "Non-category"));
+        sectorList.Add(new Sector("Lose turn", "Non-category"));
+        // add categories to sector list
+        string[] cats = this.getQuestionCategories();
+        for (int i = 0; i < cats.Length; i++)
+        {
+            sectorList.Add(new Sector(cats[i], "Category"));
+        }
     }
 
     private void Update()
@@ -53,6 +66,18 @@ public class GameEngine : MonoBehaviour
         this.questionMenu.ReceiveQuestion(nextQuestion);
     }
 
+    public void spinWheel()
+    {
+        // Here randomly choose and notify what sector was landed on
+        int sectIdx = Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
+        Debug.Log("Next up: " + sectorList[sectIdx].Name + " of type: " + sectorList[sectIdx].Type);
+        SectorLandedOn(sectorList[sectIdx]);
+
+        //Place holder untill we have the whole loop
+        //Question testQuestion = this.questionStore.getQuestion("Books", 200);
+        //this.questionMenu.ReceiveQuestion(testQuestion);
+    }
+
     public void questionAnswered(int qPts, bool correct)
     {
         //For now print strings but when its built update the player store
@@ -66,11 +91,10 @@ public class GameEngine : MonoBehaviour
         else
         {
             // Uh oh wrOng answer you get negative points.
+            // TODO implement token usage option in UI.
             playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
             Debug.Log("Answer was incorrect");
         }
-
-        // Switch players.
 
     }
 
@@ -83,7 +107,11 @@ public class GameEngine : MonoBehaviour
     {
         if (sector.Type == "Category")
         {
+            Debug.Log("here");
+            Question testQuestion = this.questionStore.getQuestion(sector.Name, 200);
+            this.questionMenu.ReceiveQuestion(testQuestion);
             this.CategorySelected(sector.Name);
+            this.NextTurn();
         }
         else if (sector.Name == "Lose turn")
         {
@@ -109,5 +137,15 @@ public class GameEngine : MonoBehaviour
         {
 
         }
+
+        // Move to the next turn.
+        questionMenu.ResetMenu();
+
+    }
+
+    private void NextTurn()
+    {
+        playerScoring.NextPlayer();
+        // TODO: CODE TO PROMPT SPINNER BUTTON
     }
 }

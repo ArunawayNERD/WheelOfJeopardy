@@ -15,6 +15,9 @@ public class Wheel : MonoBehaviour
 
     public Sector[] SectorObjs { get => sectorObjs; set => sectorObjs = value; }
 
+    //public GameObject menuGraphics;
+    public Button spinWheel;
+
     void Awake()
     {
         questions = new Dictionary<string, Dictionary<int, Question>>();

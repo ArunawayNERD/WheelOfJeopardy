@@ -15,6 +15,8 @@ public class QuestionMenu : MonoBehaviour
 	public Button showAnswer;
     public Button correct;
     public Button incorrect;
+    public Button showQuestion;
+    //public GameObject myButton;
 
     private Question selectedQuestion;
 
@@ -28,7 +30,7 @@ public class QuestionMenu : MonoBehaviour
 	public void UpdateVisability(bool show)
 	{
 		this.menuGraphics.SetActive(show);
-	}
+    }
 
     public void ReceiveQuestion(Question selected)
     {
@@ -42,18 +44,42 @@ public class QuestionMenu : MonoBehaviour
         this.SwitchToAnswerMode();
     }
 
+    public void HandleShowQuestionClicked()
+    {
+        this.SwitchToQuestionMode();
+    }
+
     public void HandleAnswerClicked(bool correct)
     {
-
         gameEngine.questionAnswered(this.selectedQuestion.points, correct);
         UpdateVisability(false);
     }
 
-	private void ResetMenu()
+    // this was private, but I changed it to public to call it from GameEngine class
+	public void ResetMenu()
+    {
+        this.title.SetText("Category");
+
+        if (this.selectedQuestion != null)
+        {
+            this.displayText.SetText(selectedQuestion.category);
+        }
+        else
+        {
+            this.displayText.SetText("");
+        }
+        
+        this.showQuestion.gameObject.SetActive(true);
+        this.showAnswer.gameObject.SetActive(false);
+        this.correct.gameObject.SetActive(false);
+        this.incorrect.gameObject.SetActive(false);
+    }
+
+    private void SwitchToQuestionMode()
     {
         this.title.SetText("Question");
 
-        if(this.selectedQuestion != null)
+        if (this.selectedQuestion != null)
         {
             this.displayText.SetText(selectedQuestion.question);
         }
@@ -61,8 +87,8 @@ public class QuestionMenu : MonoBehaviour
         {
             this.displayText.SetText("");
         }
-
-
+        
+        this.showQuestion.gameObject.SetActive(false);
         this.showAnswer.gameObject.SetActive(true);
         this.correct.gameObject.SetActive(false);
         this.incorrect.gameObject.SetActive(false);
