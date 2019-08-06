@@ -108,10 +108,6 @@ public class GameEngine : MonoBehaviour
         if (sector.Type == "Category")
         {
             Debug.Log("here");
-            // TODO below statements are necessary but trigger KeyNotFoundException
-            // The statements are triggered when question point value is not 200
-            // Change so that getQuestion only has the sector name and questionStore returns
-            // null if there are no more questions in that category for this round.
             Question testQuestion = this.questionStore.getQuestion(sector.Name, 200);
             this.questionMenu.ReceiveQuestion(testQuestion);
             this.CategorySelected(sector.Name);

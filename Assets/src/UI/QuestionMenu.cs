@@ -30,7 +30,7 @@ public class QuestionMenu : MonoBehaviour
 	public void UpdateVisability(bool show)
 	{
 		this.menuGraphics.SetActive(show);
-	}
+    }
 
     public void ReceiveQuestion(Question selected)
     {
@@ -87,7 +87,7 @@ public class QuestionMenu : MonoBehaviour
         {
             this.displayText.SetText("");
         }
-
+        
         this.showQuestion.gameObject.SetActive(false);
         this.showAnswer.gameObject.SetActive(true);
         this.correct.gameObject.SetActive(false);
