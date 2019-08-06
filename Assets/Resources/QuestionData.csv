@@ -1,7 +1,31 @@
-Each line represents a question in to format "Category, Question, Answer, Score"
-Math, 2+2, 4, 200
-Science, C stands for?, Carbon, 200
-Books, Who wrote Frankenstein?, Mary Shelly, 200
-CS, Is C# cool?, not really, 200
-EG, F is equal to?, ma, 200
-Random, 7+7, 14, 200
+"Each line represents a question in to format ""Category", Question, Answer," Score"""
+Math,19+13,32,200
+Science, C stands for?, Carbon,200
+Books, Who wrote Frankenstein?, Mary Shelly,200
+Computers,What do you use to type on the computer?,Keyboard,200
+Food,What U.S. nonprofit organization sells about 200 million boxes of cookies per year?,The Girl Scouts,200
+Random,What is the official nickname of Texas?,The Lone Star State,200
+Math,20 / 4,5,400
+Science,True or false? The fastest land animal in the world is the zebra?,FALSE,400
+Books,Who chased Moby Dick?,Captain Ahab,400
+Computers,Do you need an Internet browser to go on the Internet?,Yes,400
+Food,"What fruit is thrown at the annual food fight festival held in Bunol, Spain?",Tomato,400
+Random,Name the biggest Island of the world.,Greenland,400
+Math,35 % 6,1,600
+Science,Pure water has a pH level of around?,7,600
+Books,Which play by Shakespeare has lovers committing suicide?,Romeo and Juliet,600
+Computers,What do you call a portable computer?,Laptop,600
+Food,"What French pastry is made with choux dough, filled with a cream and topped with icing?",Éclair,600
+Random,A deficiency of what vitamin may lead to dry eyes and night blindness?,Vitamin A,600
+Math,What is the next prime number after 7?,11,800
+Science,The fear of what animal is known as 'arachnophobia'?,,800
+Books,"What letter was the ""Scarlet Letter?""",A,800
+Computers,What operating system do people use the most?,Windows,800
+Food,Which South American country is the world's largest producer of coffee?,Brazil,800
+Random,How many bones are there in a human body?,206,800
+Math,True or false? Pi can be correctly written as a fraction.,FALSE,1000
+Science,What is the biggest planet in our solar system?,Jupiter,1000
+Books,What is the Newbery Medal given annually for?,Best Children's Book,1000
+Computers,Does RAM store information about your computer when it is closed?,FALSE,1000
+Food,A poke bowl is a diced raw fish dish that originated in which U.S. state?,Hawaii,1000
+Random,What is the meaning of Y in VIBGYOR?,Yellow,1000

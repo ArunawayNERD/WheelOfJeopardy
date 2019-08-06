@@ -28,13 +28,15 @@ public class QuestionMenu : MonoBehaviour
 	public void UpdateVisability(bool show)
 	{
 		this.menuGraphics.SetActive(show);
-	}
+        Debug.Log("text 2");
+    }
 
     public void ReceiveQuestion(Question selected)
     {
         this.selectedQuestion = selected;
         this.ResetMenu();
         UpdateVisability(true);
+        Debug.Log("text 3");
     }
 
     public void HandleShowAnswerClicked()
@@ -62,10 +64,10 @@ public class QuestionMenu : MonoBehaviour
             this.displayText.SetText("");
         }
 
-
         this.showAnswer.gameObject.SetActive(true);
         this.correct.gameObject.SetActive(false);
         this.incorrect.gameObject.SetActive(false);
+        Debug.Log("text 6");
     }
 
     private void SwitchToAnswerMode()
