@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using Assets.src.UI;
 
 public class GameEngine : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class GameEngine : MonoBehaviour
     public QuestionStore questionStore;
     public QuestionMenu questionMenu;
     public QuestionBoard board;
+    public UseToken useToken;
     public TextMeshProUGUI currentRound;
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
@@ -46,6 +49,33 @@ public class GameEngine : MonoBehaviour
         {
             sectorList.Add(new Sector(cats[i], "Category"));
         }
+    }
+
+    public void tokenUsed(bool used, string invoker, int qPts)
+    {
+        if (used && invoker == "Lose turn")
+        {
+            // Player uses their token to spin wheel again.
+            // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
+            playerScoring.ActivePlayer.UseToken();
+        }
+        else if (!used && invoker == "Lose turn")
+        {
+            // Tough luck, kid.
+            this.NextTurn();
+        }
+        else if (used && invoker == "Question answered")
+        {
+            // Player is bad at this, but wants to keep trying.
+            // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
+            playerScoring.ActivePlayer.UseToken();
+        }
+        else if (!used && invoker == "Question answered")
+        {
+            // Player is bad at this and accepts that they are bad at this.
+            playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
+        }
+
     }
 
     private void Update()
@@ -90,10 +120,11 @@ public class GameEngine : MonoBehaviour
         }
         else
         {
-            // Uh oh wrOng answer you get negative points.
+            // Uh oh wrOng answer you get negative points (unless you use token).
             // TODO implement token usage option in UI.
-            playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
-            Debug.Log("Answer was incorrect");
+            Debug.Log("Answer was incorrect -- giving choice of using token");
+            useToken.Display(true, "Question answered", qPts);
+            
         }
 
     }
@@ -115,11 +146,17 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Lose turn")
         {
+            // TODO Target: Call to trigger UI element allowing choice of using token.
+            // The player's response is a callback to GameEngine.tokenUsed()
 
+            // For now, simulate action.
+            Debug.Log("Landed on lose turn sector -- player given choice of using token to spin again");
+            useToken.Display(true, "Lose turn", 0);
         }
         else if (sector.Name == "Free turn")
         {
-
+            Debug.Log("Landed on free turn sector -- player given additional token");
+            playerScoring.ActivePlayer.AddToken();
         }
         else if (sector.Name == "Bankrupt")
         {
