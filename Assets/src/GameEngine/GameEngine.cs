@@ -16,13 +16,13 @@ public class GameEngine : MonoBehaviour
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
     public List<Sector> sectorList;
-    public GameObject menuGraphics;
+
     public Button spinWheelBtn;
 
-    private Wheel wheel;
+    public Wheel wheel;
     private int currentRoundNum;
 
-    public Wheel Wheel { get => wheel; set => wheel = value; }
+    //public Wheel Wheel { get => wheel; set => wheel = value; }
 
     public int CurrentRoundNum { get => currentRoundNum; set => currentRoundNum = value; }
 
@@ -84,6 +84,12 @@ public class GameEngine : MonoBehaviour
         // Make sure the current player field always has the current player's name.
         currentPlayer.SetText(playerScoring.ActivePlayer.Name);
         this.board.ReceiveQuestionAnswered(this.questionStore.getQuestionsAnswered());
+    }
+
+    public void CategorySelected(int categoryIndex)
+    {
+        string category = wheel.GetCategory(categoryIndex);
+        this.CategorySelected(category);
     }
 
     public void CategorySelected(string category)
