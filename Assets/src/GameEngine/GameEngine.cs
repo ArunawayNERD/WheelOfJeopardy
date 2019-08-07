@@ -115,6 +115,7 @@ public class GameEngine : MonoBehaviour
             Debug.Log("Answer was correct");
 
             playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);
+            this.NextTurn();
             
         }
         else
@@ -138,7 +139,6 @@ public class GameEngine : MonoBehaviour
         if (sector.Type == "Category")
         {
             this.CategorySelected(sector.Name);
-            this.NextTurn();
         }
         else if (sector.Name == "Lose turn")
         {
