@@ -137,9 +137,6 @@ public class GameEngine : MonoBehaviour
     {
         if (sector.Type == "Category")
         {
-            //Debug.Log("here");
-            //Question testQuestion = this.questionStore.getQuestion(sector.Name, 200);
-            //this.questionMenu.ReceiveQuestion(testQuestion);
             this.CategorySelected(sector.Name);
             this.NextTurn();
         }
@@ -176,7 +173,6 @@ public class GameEngine : MonoBehaviour
         }
 
         // Move to the next turn.
-        //questionMenu.ResetMenu();
 
     }
 
