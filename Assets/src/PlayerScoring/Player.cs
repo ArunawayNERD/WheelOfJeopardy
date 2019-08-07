@@ -32,5 +32,10 @@ namespace Assets.src.PlayerScoring
         {
             tokens += 1;
         }
+
+        public int GetTokenCount()
+        {
+            return tokens;
+        }
     }
 }

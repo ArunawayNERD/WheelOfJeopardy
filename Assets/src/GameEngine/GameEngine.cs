@@ -16,11 +16,18 @@ public class GameEngine : MonoBehaviour
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
     public List<Sector> sectorList;
+    public TextMeshProUGUI p1score;
+    public TextMeshProUGUI p2score;
+    public TextMeshProUGUI p3score;
+    public TextMeshProUGUI p1tokens;
+    public TextMeshProUGUI p2tokens;
+    public TextMeshProUGUI p3tokens;
 
     public Button spinWheelBtn;
 
     public Wheel wheel;
     private int currentRoundNum;
+    private int spinsLeftInRound;
 
     //public Wheel Wheel { get => wheel; set => wheel = value; }
 
@@ -32,6 +39,7 @@ public class GameEngine : MonoBehaviour
     	this.currentRound.SetText("1");
     	this.spinsLeft.SetText("50");
         this.currentRoundNum = 1;
+        this.spinsLeftInRound = 50;
 
         // Generate sector list
         sectorList = new List<Sector>();
@@ -64,7 +72,7 @@ public class GameEngine : MonoBehaviour
         }
         else if (used && invoker == "Question answered")
         {
-            // Player is bad at this, but wants to keep trying.
+            // Player is bad at this, but wants to keep trying. 
             // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
             playerScoring.ActivePlayer.UseToken();
         }
@@ -84,6 +92,11 @@ public class GameEngine : MonoBehaviour
         // Make sure the current player field always has the current player's name.
         currentPlayer.SetText(playerScoring.ActivePlayer.Name);
         this.board.ReceiveQuestionAnswered(this.questionStore.getQuestionsAnswered());
+
+        // adjust player scores & tokens
+        this.p1score.SetText(playerScoring.GetPlayerScore(0).ToString());
+        this.p2score.SetText(playerScoring.GetPlayerScore(1).ToString());
+        this.p3score.SetText(playerScoring.GetPlayerScore(2).ToString());
     }
 
     public void CategorySelected(int categoryIndex)
@@ -108,6 +121,10 @@ public class GameEngine : MonoBehaviour
         Debug.Log("Next up: " + sectorList[sectIdx].Name + " of type: " + sectorList[sectIdx].Type);
         SectorLandedOn(sectorList[sectIdx]);
 
+        // decrement spins counter
+        this.spinsLeftInRound = this.spinsLeftInRound - 1;
+        this.spinsLeft.SetText(this.spinsLeftInRound.ToString());
+        
         //Place holder untill we have the whole loop
         //Question testQuestion = this.questionStore.getQuestion("Books", 200);
         //this.questionMenu.ReceiveQuestion(testQuestion);
@@ -118,8 +135,7 @@ public class GameEngine : MonoBehaviour
         //For now print strings but when its built update the player store
         if(correct)
         {
-            Debug.Log("Answer was correct");
-
+            Debug.Log("Answer was correct" + qPts);
             playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);
             this.NextTurn();
             
@@ -128,10 +144,22 @@ public class GameEngine : MonoBehaviour
         {
             // Uh oh wrOng answer you get negative points (unless you use token).
             // TODO: implement token usage option in UI.
-            Debug.Log("Answer was incorrect -- giving choice of using token");
-            useToken.Display(true, "Question answered", qPts);
-            
+            Debug.Log("Answer was incorrect -- giving choice of using token -- if they have one.");
+            if (playerScoring.ActivePlayer.GetTokenCount() > 0)
+            {
+                useToken.Display(true, "Question answered", qPts);
+                Debug.Log("They do");
+            } else
+            {
+                useToken.Display(false, "Question answered", qPts);
+                Debug.Log("They dont");
+                playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
+                this.NextTurn();
+            }
         }
+        this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
+        this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
+        this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
 
     }
 
@@ -152,26 +180,44 @@ public class GameEngine : MonoBehaviour
             // The player's response is a callback to GameEngine.tokenUsed()
 
             // For now, simulate action.
-            Debug.Log("Landed on lose turn sector -- player given choice of using token to spin again");
-            useToken.Display(true, "Lose turn", 0);
+            Debug.Log("Landed on lose turn sector -- player given choice of using token to spin again -- if they have one");
+            if (playerScoring.ActivePlayer.GetTokenCount() > 0)
+            {
+                useToken.Display(true, "Lose turn", 0);
+                Debug.Log("They do");
+            }
+            else
+            {
+                useToken.Display(false, "Lose turn", 0);
+                Debug.Log("They dont");
+            }
+            this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
+            this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
+            this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
         }
         else if (sector.Name == "Free turn")
         {
             Debug.Log("Landed on free turn sector -- player given additional token");
             playerScoring.ActivePlayer.AddToken();
+            this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
+            this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
+            this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
         }
         else if (sector.Name == "Bankrupt")
         {
             Debug.Log("Landed on bankrupt sector -- player loses all their points");
             playerScoring.UpdateActivePlayerScore(-playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
+            // Tough luck, kid.
+            this.NextTurn();
         }
         else if (sector.Name == "Player's choice")
         {
 
+            this.CategorySelected(sector.Name);
         }
         else if (sector.Name == "Opponent's choice")
         {
-
+            this.CategorySelected(sector.Name);
         }
         else if (sector.Name == "Double your score")
         {
@@ -185,6 +231,7 @@ public class GameEngine : MonoBehaviour
     private void NextTurn()
     {
         playerScoring.NextPlayer();
+
         // TODO: CODE TO PROMPT SPINNER BUTTON
     }
 }
