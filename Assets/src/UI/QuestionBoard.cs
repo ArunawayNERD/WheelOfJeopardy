@@ -88,14 +88,17 @@ public class QuestionBoard : MonoBehaviour
                     break;
             }
 
-            for(int j = 1; j <= numAnswered; j++)
+            if (numAnswered < 6)
             {
-                texts[j - 1].SetText("");
-            }
+                for (int j = 1; j <= numAnswered; j++)
+                {
+                    texts[j - 1].SetText("");
+                }
 
-            if(numAnswered >= 5)
-            {
-                this.catButtons[i].interactable = false;
+                if (numAnswered >= 5)
+                {
+                    this.catButtons[i].interactable = false;
+                }
             }
         }
     }

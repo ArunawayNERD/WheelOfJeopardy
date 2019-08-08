@@ -108,17 +108,22 @@ public class GameEngine : MonoBehaviour
     public void CategorySelected(string category)
     {
         //string category = this.getQuestionCategories()[categoryIndex];
+        //Debug.Log(category);
+
         int answered = this.questionStore.getQuestionsAnswered()[category];
 
-        Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
-        this.questionMenu.ReceiveQuestion(nextQuestion);
+        if (((200 * answered) + 200) < 1200)
+        {
+            Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
+            this.questionMenu.ReceiveQuestion(nextQuestion);
+        }
     }
 
     public void spinWheel()
     {
         // Here randomly choose and notify what sector was landed on
         int sectIdx = UnityEngine.Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
-        Debug.Log("Next up: " + sectorList[sectIdx].Name + " of type: " + sectorList[sectIdx].Type);
+        Debug.Log("Next up: " + sectorList[sectIdx].Name);
         SectorLandedOn(sectorList[sectIdx]);
 
         // decrement spins counter
@@ -135,7 +140,7 @@ public class GameEngine : MonoBehaviour
         //For now print strings but when its built update the player store
         if(correct)
         {
-            Debug.Log("Answer was correct" + qPts);
+            Debug.Log("Answer was correct");
             playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);
             this.NextTurn();
             
@@ -213,11 +218,11 @@ public class GameEngine : MonoBehaviour
         else if (sector.Name == "Player's choice")
         {
 
-            this.CategorySelected(sector.Name);
+           // this.CategorySelected(sector.Name);
         }
         else if (sector.Name == "Opponent's choice")
         {
-            this.CategorySelected(sector.Name);
+            //this.CategorySelected(sector.Name);
         }
         else if (sector.Name == "Double your score")
         {
