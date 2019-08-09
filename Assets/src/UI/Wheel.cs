@@ -15,8 +15,15 @@ public class Wheel : MonoBehaviour
 
     public Sector[] SectorObjs { get => sectorObjs; set => sectorObjs = value; }
 
-    //public GameObject menuGraphics;
+    public GameObject menuGraphics;
     public Button spinWheel;
+
+    //public bool spinning = false;
+
+    //private bool stop;
+
+    //public float speed = 0; 
+
 
     void Awake()
     {
@@ -80,16 +87,34 @@ public class Wheel : MonoBehaviour
     {
         return sectorObjs[categIndex].Name;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    /*
+     // Update is called once per frame
     void Update()
     {
-        
+        Rotate();
     }
+    
+    void Rotate() {
+        Debug.Log("we here");
+        transform.Rotate(0,0,-speed*Time.deltaTime); 
+        if (spinning == false && speed > 0) {
+            StopSpin();
+        }
+    }
+
+    public void StartSpin() {
+        spinning = true;
+        speed = 600;
+        //instantly start to slow down the wheel
+        spinning = false;
+    }    
+
+    void StopSpin() {
+        speed--;
+        if (speed <= 0) {
+            speed = 0;
+        }
+    }
+    */
+
 }
