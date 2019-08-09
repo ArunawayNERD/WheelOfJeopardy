@@ -1,7 +1,7 @@
 ﻿public class Sector
 {
-    private string name;
-    private string type;
+    public string name;
+    public string type;
 
     public Sector(string name, string type)
     {
