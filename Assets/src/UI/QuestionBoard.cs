@@ -10,7 +10,6 @@ public class QuestionBoard : MonoBehaviour
 
     public TextMeshProUGUI[] headers;
     public Button[] catButtons;
-    private Wheel wheel;
 
     //probably not the best way to do this but speed over the best code atm
     public TextMeshProUGUI[] catOneTexts;
@@ -33,7 +32,6 @@ public class QuestionBoard : MonoBehaviour
 
         //Uncommented for now for testing
         //  this.setBoardInteractable(false);
-        wheel = gameEngine.Wheel;
 
     }
 
@@ -57,8 +55,7 @@ public class QuestionBoard : MonoBehaviour
     // NOTE: In Unity, Wheel indices for categories must match QuestionBoard indices for categories.
     public void HandleCategoryClicked(int categIndex)
     {
-        string categ = wheel.GetCategory(categIndex);
-        gameEngine.CategorySelected(categ);
+        gameEngine.CategorySelected(categIndex);
     }
 
     public void ReceiveQuestionAnswered(Dictionary<string, int> questionsAnswered)
@@ -91,14 +88,17 @@ public class QuestionBoard : MonoBehaviour
                     break;
             }
 
-            for(int j = 1; j <= numAnswered; j++)
+            if (numAnswered < 6)
             {
-                texts[j - 1].SetText("");
-            }
+                for (int j = 1; j <= numAnswered; j++)
+                {
+                    texts[j - 1].SetText("");
+                }
 
-            if(numAnswered >= 5)
-            {
-                this.catButtons[i].interactable = false;
+                if (numAnswered >= 5)
+                {
+                    this.catButtons[i].interactable = false;
+                }
             }
         }
     }

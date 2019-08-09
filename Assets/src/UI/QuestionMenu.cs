@@ -54,9 +54,8 @@ public class QuestionMenu : MonoBehaviour
         gameEngine.questionAnswered(this.selectedQuestion.points, correct);
         UpdateVisability(false);
     }
-
-    // this was private, but I changed it to public to call it from GameEngine class
-	public void ResetMenu()
+    
+	private void ResetMenu()
     {
         this.title.SetText("Category");
 

@@ -74,7 +74,11 @@ public class QuestionStore : MonoBehaviour
         return this.questions.Keys.ToArray();
     }
 
-    public Question getQuestion(string category, int pointValue){
+    public Question getQuestion(string category, int pointValue) {
+        if (pointValue > 1000)
+        { 
+            return null;
+        }
         Debug.Log("Question Store: Getting question " + category + " for " + pointValue);
 
         this.questionsAnswered[category] = this.questionsAnswered[category] + 1;
