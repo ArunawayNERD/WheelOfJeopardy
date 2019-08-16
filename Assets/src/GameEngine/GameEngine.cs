@@ -29,6 +29,10 @@ public class GameEngine : MonoBehaviour
     private int currentRoundNum;
     private int spinsLeftInRound;
 
+    public bool spinning = false;
+    public Button done;
+    public float speed = 0; 
+
     //public Wheel Wheel { get => wheel; set => wheel = value; }
 
     public int CurrentRoundNum { get => currentRoundNum; set => currentRoundNum = value; }
@@ -87,6 +91,7 @@ public class GameEngine : MonoBehaviour
 
     private void Update()
     {
+    	Rotate();
         // Make sure the current round field is always correct.
         currentRound.SetText(currentRoundNum.ToString());
         // Make sure the current player field always has the current player's name.
@@ -119,7 +124,7 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    public void spinWheel()
+    /*public void spinWheel()
     {
         // Here randomly choose and notify what sector was landed on
         int sectIdx = UnityEngine.Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
@@ -133,7 +138,7 @@ public class GameEngine : MonoBehaviour
         //Place holder untill we have the whole loop
         //Question testQuestion = this.questionStore.getQuestion("Books", 200);
         //this.questionMenu.ReceiveQuestion(testQuestion);
-    }
+    }*/
 
     public void questionAnswered(int qPts, bool correct)
     {
@@ -235,8 +240,41 @@ public class GameEngine : MonoBehaviour
 
     private void NextTurn()
     {
-        playerScoring.NextPlayer();
+        //playerScoring.NextPlayer();
 
         // TODO: CODE TO PROMPT SPINNER BUTTON
+    }
+    //how to tell what the wheel stopped on
+    void OnCollisionEnter2D(Collision2D col)
+    {
+ 		Debug.Log(col.gameObject.GetComponent<Text>().text);
+ 		for (int i = 0; i < sectorList.Count; i++) {
+ 			if (sectorList[i].name == col.gameObject.GetComponent<Text>().text) {
+ 				Debug.Log(sectorList[i].name + sectorList[i].type);
+ 				SectorLandedOn(sectorList[i]);
+ 				break;
+ 			}
+ 		}
+ 		//Debug.Log("answer " + sectorList.Find(x => x.name == col.gameObject.GetComponent<Text>().text));
+ 		//SectorLandedOn(sectorList.Find(col.gameObject.GetComponent<Text>().text));
+    }
+    void Rotate() {
+    	wheel.transform.Rotate(0,0,-speed*Time.deltaTime);
+    	if (speed > 0) {
+    		Stop();
+    	}
+    }
+    public void StartSpin() {
+    	speed = 500;
+    }
+    public void Stop() {
+    	speed--;
+    	if (speed < 10) {
+    		done.GetComponent<BoxCollider2D>().enabled = true;
+    	}
+    	if (speed <= 0) {
+    		done.GetComponent<BoxCollider2D>().enabled = false;
+    		speed = 0;    
+    	}
     }
 }
