@@ -12,7 +12,6 @@ public class GameEngine : MonoBehaviour
     public QuestionMenu questionMenu;
     public TokenMenu tokenMenu;
     public QuestionBoard board;
-    //public UseToken useToken;
     public TextMeshProUGUI currentRound;
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
@@ -67,34 +66,6 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    //public void tokenUsed(bool used, string invoker, int qPts)
-    //{
-    //    if (used && invoker == "Lose turn")
-    //    {
-    //        // Player uses their token to spin wheel again.
-    //        // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
-    //        playerScoring.ActivePlayer.UseToken();
-    //    }
-    //    else if (!used && invoker == "Lose turn")
-    //    {
-    //        // Tough luck, kid.
-    //        this.NextTurn();
-    //    }
-    //    else if (used && invoker == "Question answered")
-    //    {
-    //        // Player is bad at this, but wants to keep trying. 
-    //        // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
-    //        playerScoring.ActivePlayer.UseToken();
-    //    }
-    //    else if (!used && invoker == "Question answered")
-    //    {
-    //        // Player is bad at this and accepts that they are bad at this.
-    //        playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
-    //        this.NextTurn();
-    //    }
-
-    //}
-
     private void Update()
     {
     	Rotate();
@@ -134,22 +105,6 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    /*public void spinWheel()
-    {
-        // Here randomly choose and notify what sector was landed on
-        int sectIdx = UnityEngine.Random.Range(0, 11);  // 12 because 6 categories and 6 "other"- should probably not be hardcoded.
-        Debug.Log("Next up: " + sectorList[sectIdx].Name);
-        SectorLandedOn(sectorList[sectIdx]);
-
-        // decrement spins counter
-        this.spinsLeftInRound = this.spinsLeftInRound - 1;
-        this.spinsLeft.SetText(this.spinsLeftInRound.ToString());
-        
-        //Place holder untill we have the whole loop
-        //Question testQuestion = this.questionStore.getQuestion("Books", 200);
-        //this.questionMenu.ReceiveQuestion(testQuestion);
-    }*/
-
     public void handleTokenDecision(bool useToken)
     {
         if(!useToken)
@@ -157,7 +112,7 @@ public class GameEngine : MonoBehaviour
             //If they arent useing a token we need to let subtract points if we got here before of a wrong answer
             if (this.reasonForToken == TokenUse.Incorrect)
             {
-                playerScoring.UpdateActivePlayerScore(this.pendingTokenScore, currentRoundNum);
+                playerScoring.UpdateActivePlayerScore(-this.pendingTokenScore, currentRoundNum);
             }
 
             this.NextTurn();
