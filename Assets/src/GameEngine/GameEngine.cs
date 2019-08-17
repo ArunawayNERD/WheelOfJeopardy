@@ -34,6 +34,7 @@ public class GameEngine : MonoBehaviour
 
     public bool spinning = false;
     public Button done;
+    public GameObject arrow;
     public float speed = 0; 
 
     private enum TokenUse {LoseTurn, Incorrect };
@@ -245,10 +246,12 @@ public class GameEngine : MonoBehaviour
     public void Stop() {
     	speed--;
     	if (speed < 10) {
-    		done.GetComponent<BoxCollider2D>().enabled = true;
+    		//done.GetComponent<BoxCollider2D>().enabled = true;
+    		arrow.GetComponent<BoxCollider2D>().enabled = true;
     	}
     	if (speed <= 0) {
-    		done.GetComponent<BoxCollider2D>().enabled = false;
+    		//done.GetComponent<BoxCollider2D>().enabled = false;
+    		arrow.GetComponent<BoxCollider2D>().enabled = false;
     		speed = 0;    
     		this.spinsLeftInRound = this.spinsLeftInRound - 1;
         	this.spinsLeft.SetText(this.spinsLeftInRound.ToString());
