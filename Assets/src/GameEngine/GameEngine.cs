@@ -235,12 +235,12 @@ public class GameEngine : MonoBehaviour
         }
 
         // Move to the next turn.
-
+        //this.NextTurn();
     }
 
     private void NextTurn()
     {
-        //playerScoring.NextPlayer();
+        playerScoring.NextPlayer();
 
         // TODO: CODE TO PROMPT SPINNER BUTTON
     }
@@ -275,6 +275,8 @@ public class GameEngine : MonoBehaviour
     	if (speed <= 0) {
     		done.GetComponent<BoxCollider2D>().enabled = false;
     		speed = 0;    
+    		this.spinsLeftInRound = this.spinsLeftInRound - 1;
+        	this.spinsLeft.SetText(this.spinsLeftInRound.ToString());
     	}
     }
 }
