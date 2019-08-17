@@ -29,10 +29,10 @@ namespace Assets.src.UI
             // Disclaimer: I don't know how this will actually be implemented.
             // For now, a call to this triggers the use of a token (forgoing choice for Minimal).
             // TODO: Make this method trigger a button display whose call back will call gameEngine.tokenUsed()
-            if (disp == true)
-            {
-                gameEngine.tokenUsed(true, invoker, qPts);
-            }
+        //    if (disp == true)
+        //    {
+        //        gameEngine.tokenUsed(true, invoker, qPts);
+        //    }
         }
     }
 }

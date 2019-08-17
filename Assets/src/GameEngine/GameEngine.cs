@@ -10,8 +10,9 @@ public class GameEngine : MonoBehaviour
     public PlayerScoring playerScoring;
     public QuestionStore questionStore;
     public QuestionMenu questionMenu;
+    public TokenMenu tokenMenu;
     public QuestionBoard board;
-    public UseToken useToken;
+    //public UseToken useToken;
     public TextMeshProUGUI currentRound;
     public TextMeshProUGUI spinsLeft;
     public TextMeshProUGUI currentPlayer;
@@ -28,6 +29,11 @@ public class GameEngine : MonoBehaviour
     public Wheel wheel;
     private int currentRoundNum;
     private int spinsLeftInRound;
+
+    private TokenUse reasonForToken;
+    private int pendingTokenScore;
+
+    private enum TokenUse {LoseTurn, Incorrect };
 
     //public Wheel Wheel { get => wheel; set => wheel = value; }
 
@@ -57,33 +63,33 @@ public class GameEngine : MonoBehaviour
         }
     }
 
-    public void tokenUsed(bool used, string invoker, int qPts)
-    {
-        if (used && invoker == "Lose turn")
-        {
-            // Player uses their token to spin wheel again.
-            // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
-            playerScoring.ActivePlayer.UseToken();
-        }
-        else if (!used && invoker == "Lose turn")
-        {
-            // Tough luck, kid.
-            this.NextTurn();
-        }
-        else if (used && invoker == "Question answered")
-        {
-            // Player is bad at this, but wants to keep trying. 
-            // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
-            playerScoring.ActivePlayer.UseToken();
-        }
-        else if (!used && invoker == "Question answered")
-        {
-            // Player is bad at this and accepts that they are bad at this.
-            playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
-            this.NextTurn();
-        }
+    //public void tokenUsed(bool used, string invoker, int qPts)
+    //{
+    //    if (used && invoker == "Lose turn")
+    //    {
+    //        // Player uses their token to spin wheel again.
+    //        // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
+    //        playerScoring.ActivePlayer.UseToken();
+    //    }
+    //    else if (!used && invoker == "Lose turn")
+    //    {
+    //        // Tough luck, kid.
+    //        this.NextTurn();
+    //    }
+    //    else if (used && invoker == "Question answered")
+    //    {
+    //        // Player is bad at this, but wants to keep trying. 
+    //        // TODO: Pull from Ben's implementation of spinning wheel to be able to spin wheel.
+    //        playerScoring.ActivePlayer.UseToken();
+    //    }
+    //    else if (!used && invoker == "Question answered")
+    //    {
+    //        // Player is bad at this and accepts that they are bad at this.
+    //        playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
+    //        this.NextTurn();
+    //    }
 
-    }
+    //}
 
     private void Update()
     {
@@ -97,6 +103,10 @@ public class GameEngine : MonoBehaviour
         this.p1score.SetText(playerScoring.GetPlayerScore(0).ToString());
         this.p2score.SetText(playerScoring.GetPlayerScore(1).ToString());
         this.p3score.SetText(playerScoring.GetPlayerScore(2).ToString());
+
+        this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
+        this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
+        this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
     }
 
     public void CategorySelected(int categoryIndex)
@@ -135,6 +145,25 @@ public class GameEngine : MonoBehaviour
         //this.questionMenu.ReceiveQuestion(testQuestion);
     }
 
+    public void handleTokenDecision(bool useToken)
+    {
+        if(!useToken)
+        {
+            //If they arent useing a token we need to let subtract points if we got here before of a wrong answer
+            if (this.reasonForToken == TokenUse.Incorrect)
+            {
+                playerScoring.UpdateActivePlayerScore(this.pendingTokenScore, currentRoundNum);
+            }
+
+            this.NextTurn();
+        }
+        else
+        {
+            //If they used the token then we dont really need to do anything since we arent switching players. We just need to subtract a token
+            this.playerScoring.ActivePlayer.UseToken();
+        }
+    }
+
     public void questionAnswered(int qPts, bool correct)
     {
         //For now print strings but when its built update the player store
@@ -152,19 +181,19 @@ public class GameEngine : MonoBehaviour
             Debug.Log("Answer was incorrect -- giving choice of using token -- if they have one.");
             if (playerScoring.ActivePlayer.GetTokenCount() > 0)
             {
-                useToken.Display(true, "Question answered", qPts);
                 Debug.Log("They do");
+
+                this.reasonForToken = TokenUse.Incorrect;
+                this.pendingTokenScore = qPts;
+                this.tokenMenu.UpdateVisability(true);
+
             } else
             {
-                useToken.Display(false, "Question answered", qPts);
                 Debug.Log("They dont");
                 playerScoring.UpdateActivePlayerScore(-qPts, currentRoundNum);
                 this.NextTurn();
             }
         }
-        this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
-        this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
-        this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
 
     }
 
@@ -188,25 +217,16 @@ public class GameEngine : MonoBehaviour
             Debug.Log("Landed on lose turn sector -- player given choice of using token to spin again -- if they have one");
             if (playerScoring.ActivePlayer.GetTokenCount() > 0)
             {
-                useToken.Display(true, "Lose turn", 0);
-                Debug.Log("They do");
+                this.reasonForToken = TokenUse.LoseTurn;
+                this.tokenMenu.UpdateVisability(true);
             }
-            else
-            {
-                useToken.Display(false, "Lose turn", 0);
-                Debug.Log("They dont");
-            }
-            this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
-            this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
-            this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
+
+
         }
         else if (sector.Name == "Free turn")
         {
             Debug.Log("Landed on free turn sector -- player given additional token");
             playerScoring.ActivePlayer.AddToken();
-            this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
-            this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
-            this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
         }
         else if (sector.Name == "Bankrupt")
         {
