@@ -12,16 +12,10 @@ public class GameEngine : MonoBehaviour
     public QuestionMenu questionMenu;
     public TokenMenu tokenMenu;
     public QuestionBoard board;
-    public TextMeshProUGUI currentRound;
-    public TextMeshProUGUI spinsLeft;
-    public TextMeshProUGUI currentPlayer;
+    public Infobar infoBar;
+    public PlayerStats playerStats;
+    
     public List<Sector> sectorList;
-    public TextMeshProUGUI p1score;
-    public TextMeshProUGUI p2score;
-    public TextMeshProUGUI p3score;
-    public TextMeshProUGUI p1tokens;
-    public TextMeshProUGUI p2tokens;
-    public TextMeshProUGUI p3tokens;
 
     public Button spinWheelBtn;
 
@@ -32,24 +26,20 @@ public class GameEngine : MonoBehaviour
     private TokenUse reasonForToken;
     private int pendingTokenScore;
 
-    public bool spinning = false;
-    public Button done;
-    public GameObject arrow;
-    public float speed = 0; 
-
     private enum TokenUse {LoseTurn, Incorrect };
-
-    //public Wheel Wheel { get => wheel; set => wheel = value; }
 
     public int CurrentRoundNum { get => currentRoundNum; set => currentRoundNum = value; }
 
     void Start()
     {
     	//Populate the round counter and spin counter
-    	this.currentRound.SetText("1");
-    	this.spinsLeft.SetText("50");
         this.currentRoundNum = 1;
         this.spinsLeftInRound = 50;
+
+        Debug.Log(this.infoBar);
+        Debug.Log(this.currentRoundNum);
+        Debug.Log(this.spinsLeftInRound);
+        this.infoBar.updateRoundInfo(this.currentRoundNum, this.spinsLeftInRound);
 
         // Generate sector list
         sectorList = new List<Sector>();
@@ -64,26 +54,25 @@ public class GameEngine : MonoBehaviour
         for (int i = 0; i < cats.Length; i++)
         {
             sectorList.Add(new Sector(cats[i], "Category"));
+            Debug.Log(cats[i]);
         }
     }
 
-    private void Update()
+    void Update()
     {
-    	Rotate();
-        // Make sure the current round field is always correct.
-        currentRound.SetText(currentRoundNum.ToString());
+        this.infoBar.updateRoundInfo(this.currentRoundNum, this.spinsLeftInRound);
+
         // Make sure the current player field always has the current player's name.
-        currentPlayer.SetText(playerScoring.ActivePlayer.Name);
+        this.infoBar.updatePlayerName(playerScoring.ActivePlayer.Name);
+
+
+        //Send the board the question info to turn on and off the 
         this.board.ReceiveQuestionAnswered(this.questionStore.getQuestionsAnswered());
 
         // adjust player scores & tokens
-        this.p1score.SetText(playerScoring.GetPlayerScore(0).ToString());
-        this.p2score.SetText(playerScoring.GetPlayerScore(1).ToString());
-        this.p3score.SetText(playerScoring.GetPlayerScore(2).ToString());
-
-        this.p1tokens.SetText(playerScoring.GetPlayerTokenCount(0).ToString());
-        this.p2tokens.SetText(playerScoring.GetPlayerTokenCount(1).ToString());
-        this.p3tokens.SetText(playerScoring.GetPlayerTokenCount(2).ToString());
+        this.playerStats.updatePlayerInfo(this.playerScoring.Players[0],
+                                          this.playerScoring.Players[1],
+                                          this.playerScoring.Players[2]);
     }
 
     public void CategorySelected(int categoryIndex)
@@ -94,9 +83,6 @@ public class GameEngine : MonoBehaviour
 
     public void CategorySelected(string category)
     {
-        //string category = this.getQuestionCategories()[categoryIndex];
-        //Debug.Log(category);
-
         int answered = this.questionStore.getQuestionsAnswered()[category];
 
         if (((200 * answered) + 200) < 1200)
@@ -165,6 +151,9 @@ public class GameEngine : MonoBehaviour
 
     public void SectorLandedOn(Sector sector)
     {
+        //The wheel spun so remove one from the count
+        this.spinsLeftInRound = this.spinsLeftInRound - 1;
+
         if (sector.Type == "Category")
         {
             this.CategorySelected(sector.Name);
@@ -181,6 +170,10 @@ public class GameEngine : MonoBehaviour
                 this.reasonForToken = TokenUse.LoseTurn;
                 this.tokenMenu.UpdateVisability(true);
             }
+            else
+            {
+                this.NextTurn();
+            }
 
 
         }
@@ -188,6 +181,7 @@ public class GameEngine : MonoBehaviour
         {
             Debug.Log("Landed on free turn sector -- player given additional token");
             playerScoring.ActivePlayer.AddToken();
+            this.NextTurn();
         }
         else if (sector.Name == "Bankrupt")
         {
@@ -199,19 +193,21 @@ public class GameEngine : MonoBehaviour
         else if (sector.Name == "Player's choice")
         {
 
-           // this.CategorySelected(sector.Name);
+            // this.CategorySelected(sector.Name);
+         
         }
         else if (sector.Name == "Opponent's choice")
         {
             //this.CategorySelected(sector.Name);
+            
         }
         else if (sector.Name == "Double your score")
         {
-            playerScoring.UpdateActivePlayerScore(2*playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
+
+            playerScoring.UpdateActivePlayerScore(playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
+            this.NextTurn();
         }
 
-        // Move to the next turn.
-        //this.NextTurn();
     }
 
     private void NextTurn()
@@ -220,41 +216,5 @@ public class GameEngine : MonoBehaviour
 
         // TODO: CODE TO PROMPT SPINNER BUTTON
     }
-    //how to tell what the wheel stopped on
-    void OnCollisionEnter2D(Collision2D col)
-    {
- 		Debug.Log(col.gameObject.GetComponent<Text>().text);
- 		for (int i = 0; i < sectorList.Count; i++) {
- 			if (sectorList[i].name == col.gameObject.GetComponent<Text>().text) {
- 				Debug.Log(sectorList[i].name + sectorList[i].type);
- 				SectorLandedOn(sectorList[i]);
- 				break;
- 			}
- 		}
- 		//Debug.Log("answer " + sectorList.Find(x => x.name == col.gameObject.GetComponent<Text>().text));
- 		//SectorLandedOn(sectorList.Find(col.gameObject.GetComponent<Text>().text));
-    }
-    void Rotate() {
-    	wheel.transform.Rotate(0,0,-speed*Time.deltaTime);
-    	if (speed > 0) {
-    		Stop();
-    	}
-    }
-    public void StartSpin() {
-    	speed = 500;
-    }
-    public void Stop() {
-    	speed--;
-    	if (speed < 10) {
-    		//done.GetComponent<BoxCollider2D>().enabled = true;
-    		arrow.GetComponent<BoxCollider2D>().enabled = true;
-    	}
-    	if (speed <= 0) {
-    		//done.GetComponent<BoxCollider2D>().enabled = false;
-    		arrow.GetComponent<BoxCollider2D>().enabled = false;
-    		speed = 0;    
-    		this.spinsLeftInRound = this.spinsLeftInRound - 1;
-        	this.spinsLeft.SetText(this.spinsLeftInRound.ToString());
-    	}
-    }
+
 }
