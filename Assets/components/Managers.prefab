@@ -125,15 +125,8 @@ MonoBehaviour:
   questionMenu: {fileID: 0}
   tokenMenu: {fileID: 0}
   board: {fileID: 0}
-  currentRound: {fileID: 0}
-  spinsLeft: {fileID: 0}
-  currentPlayer: {fileID: 0}
-  p1score: {fileID: 0}
-  p2score: {fileID: 0}
-  p3score: {fileID: 0}
-  p1tokens: {fileID: 0}
-  p2tokens: {fileID: 0}
-  p3tokens: {fileID: 0}
+  infoBar: {fileID: 0}
+  playerStats: {fileID: 0}
   spinWheelBtn: {fileID: 0}
   wheel: {fileID: 0}
 --- !u!1 &3447547823533500156

@@ -35,12 +35,6 @@ public class PlayerScoring : MonoBehaviour
         activePlayer = players[activePlayerIndex];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public int GetPlayerScores()
     {
         //Debug.Log("Player Scoring: Got your message, sending you the player score now.");

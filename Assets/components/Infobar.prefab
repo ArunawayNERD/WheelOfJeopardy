@@ -384,6 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2652264156054707127}
   - component: {fileID: 2652264156054707126}
+  - component: {fileID: 4856048641935842337}
   m_Layer: 0
   m_Name: Infobar
   m_TagString: Untagged
@@ -438,6 +439,21 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &4856048641935842337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2652264156054707124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86661c62d02257449a780848d3a39a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  round: {fileID: 2652264155980927572}
+  spinsLeft: {fileID: 2652264155976444862}
+  currentPlayer: {fileID: 2652264156285519726}
 --- !u!1 &2652264156285519724
 GameObject:
   m_ObjectHideFlags: 0
