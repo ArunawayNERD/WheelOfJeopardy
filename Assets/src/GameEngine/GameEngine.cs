@@ -43,7 +43,7 @@ public class GameEngine : MonoBehaviour
 
         // Generate sector list
         sectorList = new List<Sector>();
-        sectorList.Add(new Sector("Double your score", "Non-category"));
+        sectorList.Add(new Sector("Double your Score", "Non-category"));
         sectorList.Add(new Sector("Opponent's choice", "Non-category"));
         sectorList.Add(new Sector("Player's choice", "Non-category"));
         sectorList.Add(new Sector("Bankrupt", "Non-category"));
@@ -201,7 +201,7 @@ public class GameEngine : MonoBehaviour
             //this.CategorySelected(sector.Name);
             
         }
-        else if (sector.Name == "Double your score")
+        else if (sector.Name == "Double your Score")
         {
 
             playerScoring.UpdateActivePlayerScore(playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
