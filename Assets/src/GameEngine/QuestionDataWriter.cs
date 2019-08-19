@@ -20,4 +20,9 @@ public class QuestionDataWriter
     public string[] Categories { get => categories; set => categories = value; }
     public string[,] QAData1 { get => qAData1; set => qAData1 = value; }
     public string[,] QAData2 { get => qAData2; set => qAData2 = value; }
+
+    internal void WriteToCSV()
+    {
+        throw new NotImplementedException();
+    }
 }

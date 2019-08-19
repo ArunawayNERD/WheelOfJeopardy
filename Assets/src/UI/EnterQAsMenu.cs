@@ -173,11 +173,14 @@ public class EnterQAsMenu : MonoBehaviour
                     round = 2;
                     ptVal = 200;
                     ptInc = 200;
+                    qaCatIndex = 0;
                 }
                 // If point value suggests the end of round 2, terminate processing.
                 else if (ptVal == 1000 && round == 2)
                 {
-                    // TODO: Terminate processing
+                    // Terminate processing by making window inactive and telling QuestionDataWriter to write to csv, then update data source.
+                    this.UpdateVisibility(false);
+                    qDataWriter.WriteToCSV();
                 }
                 // Otherwise, increase the point value and reset the QA category counter.
                 else
@@ -191,7 +194,7 @@ public class EnterQAsMenu : MonoBehaviour
             if (!roundChange)
             {
                 // Update prompt so that user knows what to enter before they click next the next time.
-                enterQ.SetText(enterQBaseTxt + " for category " + qDataWriter.Categories[qaCatIndex] + ", point value " + ptVal.ToString());
+                enterQ.SetText(enterQBaseTxt + " for cat. " + qDataWriter.Categories[qaCatIndex] + ", pt. val. " + ptVal.ToString());
             }
             
 
@@ -202,10 +205,23 @@ public class EnterQAsMenu : MonoBehaviour
         if (roundChange)
         {
             roundChange = false;
-            catIndex = 0;
+            catIndex = 1;
             title.SetText(titleBaseTxt + " - Round " + round.ToString());
             // Reset categories list within QuestionDataWriter
             qDataWriter.Categories = new string[NUM_CATS];
+
+            // Activate category input prompts.
+            catInput.SetActive(true);
+            enterCat.gameObject.SetActive(true);
+
+            // Deactivate Q/A input prompts.
+            enterQ.gameObject.SetActive(false);
+            enterA.gameObject.SetActive(false);
+
+            Debug.Log("Prompting for round 2 categories");
+
+            // Update prompt to ask for round 2, category 1.
+            enterCat.SetText(enterCatBaseTxt + " 1");
         }
     }
 }
