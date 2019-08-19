@@ -37,9 +37,6 @@ public class GameEngine : MonoBehaviour
         this.currentRoundNum = 1;
         this.spinsLeftInRound = spins;
 
-        Debug.Log(this.infoBar);
-        Debug.Log(this.currentRoundNum);
-        Debug.Log(this.spinsLeftInRound);
         this.infoBar.updateRoundInfo(this.currentRoundNum, this.spinsLeftInRound);
 
         // Generate sector list
@@ -86,9 +83,16 @@ public class GameEngine : MonoBehaviour
     {
         int answered = this.questionStore.getQuestionsAnswered()[category];
 
-        if (((200 * answered) + 200) < 1200)
+        if (answered < 5)
         {
-            Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
+            int scoreToGet = (answered + 1) * 200;
+
+            if (this.currentRoundNum > 1)
+            {
+                scoreToGet *= 2;
+            }
+
+            Question nextQuestion = this.questionStore.getQuestion(category, scoreToGet);
             this.questionMenu.ReceiveQuestion(nextQuestion);
         }
     }
@@ -223,7 +227,9 @@ public class GameEngine : MonoBehaviour
         if (this.spinsLeftInRound < 1 && this.currentRoundNum == 1) {
             this.currentRoundNum = 2;
             this.spinsLeftInRound = spins;
-            this.infoBar.updateRoundInfo(this.currentRoundNum, this.spinsLeftInRound);
+            this.questionStore.switchToRoundTwo();
+            this.board.resetForRoundTwo();
+
         } else if (this.spinsLeftInRound < 1 && this.currentRoundNum == 2) {
             this.wheel.gameObject.SetActive(false);
             this.arrow.gameObject.SetActive(false);
