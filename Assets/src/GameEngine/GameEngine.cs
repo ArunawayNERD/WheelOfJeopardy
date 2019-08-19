@@ -18,10 +18,11 @@ public class GameEngine : MonoBehaviour
     public List<Sector> sectorList;
 
     public Button spinWheelBtn;
-
+    public GameObject arrow;
     public Wheel wheel;
     private int currentRoundNum;
     private int spinsLeftInRound;
+    private int spins = 5;
 
     private TokenUse reasonForToken;
     private int pendingTokenScore;
@@ -34,7 +35,7 @@ public class GameEngine : MonoBehaviour
     {
     	//Populate the round counter and spin counter
         this.currentRoundNum = 1;
-        this.spinsLeftInRound = 50;
+        this.spinsLeftInRound = spins;
 
         Debug.Log(this.infoBar);
         Debug.Log(this.currentRoundNum);
@@ -141,7 +142,7 @@ public class GameEngine : MonoBehaviour
                 this.NextTurn();
             }
         }
-
+        CheckRound2();
     }
 
     public string[] getQuestionCategories()
@@ -173,15 +174,15 @@ public class GameEngine : MonoBehaviour
             else
             {
                 this.NextTurn();
+                CheckRound2();
             }
-
-
         }
         else if (sector.Name == "Free turn")
         {
             Debug.Log("Landed on free turn sector -- player given additional token");
             playerScoring.ActivePlayer.AddToken();
             this.NextTurn();
+            CheckRound2();
         }
         else if (sector.Name == "Bankrupt")
         {
@@ -189,6 +190,7 @@ public class GameEngine : MonoBehaviour
             playerScoring.UpdateActivePlayerScore(-playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
             // Tough luck, kid.
             this.NextTurn();
+            CheckRound2();
         }
         else if (sector.Name == "Player's choice")
         {
@@ -203,9 +205,9 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Double your Score")
         {
-
             playerScoring.UpdateActivePlayerScore(playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
             this.NextTurn();
+            CheckRound2();
         }
 
     }
@@ -217,4 +219,34 @@ public class GameEngine : MonoBehaviour
         // TODO: CODE TO PROMPT SPINNER BUTTON
     }
 
+    public void CheckRound2() {
+        if (this.spinsLeftInRound < 1 && this.currentRoundNum == 1) {
+            this.currentRoundNum = 2;
+            this.spinsLeftInRound = spins;
+            this.infoBar.updateRoundInfo(this.currentRoundNum, this.spinsLeftInRound);
+        } else if (this.spinsLeftInRound < 1 && this.currentRoundNum == 2) {
+            this.wheel.gameObject.SetActive(false);
+            this.arrow.gameObject.SetActive(false);
+            this.spinWheelBtn.gameObject.SetActive(false);
+
+            //who won?
+            int player1Score = this.playerScoring.GetPlayerScore(0) + this.playerScoring.GetPlayerScoreRoundTwo(0);
+            int player2Score = this.playerScoring.GetPlayerScore(1) + this.playerScoring.GetPlayerScoreRoundTwo(1);
+            int player3Score = this.playerScoring.GetPlayerScore(2) + this.playerScoring.GetPlayerScoreRoundTwo(2);
+            int ans = Math.Max(Math.Max(player1Score, player2Score), player3Score);
+            String winnerIs;
+            Debug.Log("max is " + Math.Max(Math.Max(player1Score, player2Score), player3Score));
+            if (player1Score == ans) {
+                winnerIs = this.playerScoring.GetPlayerNames()[0];
+            } else if (player2Score == ans) {
+                winnerIs = this.playerScoring.GetPlayerNames()[1];
+            }
+            else {
+                winnerIs = this.playerScoring.GetPlayerNames()[2];
+            }
+
+            this.infoBar.winner.SetText("Winner is " + winnerIs + "!");
+            this.infoBar.winner.gameObject.SetActive(true);
+        }
+    }
 }
