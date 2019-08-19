@@ -114,7 +114,7 @@ public class EnterQAsMenu : MonoBehaviour
             print("Done entering categories");
 
             // Modify question input prompt for first Q/A pair.
-            enterQ.SetText(enterQBaseTxt + " for category " + qDataWriter.Categories[qaCatIndex] + ", point value " + ptVal.ToString());
+            enterQ.SetText(enterQBaseTxt + " for cat. " + qDataWriter.Categories[qaCatIndex] + ", pt. val. " + ptVal.ToString());
         }
         // Otherwise, prompt for QA pair input. This is done second within a round.
         else
@@ -136,14 +136,28 @@ public class EnterQAsMenu : MonoBehaviour
                     qDataIndex = qaCatIndex + i * NUM_CATS;
                 }
             }
-            // Category goes first in a row.
-            qDataWriter.QAData[qDataIndex, 0] = qDataWriter.Categories[qaCatIndex];
-            // Then comes question.
-            qDataWriter.QAData[qDataIndex, 1] = q;
-            // Then comes answer.
-            qDataWriter.QAData[qDataIndex, 2] = a;
-            // Then comes point value.
-            qDataWriter.QAData[qDataIndex, 3] = ptVal.ToString();
+            if (round == 1)
+            {
+                // Category goes first in a row.
+                qDataWriter.QAData1[qDataIndex, 0] = qDataWriter.Categories[qaCatIndex];
+                // Then comes question.
+                qDataWriter.QAData1[qDataIndex, 1] = q;
+                // Then comes answer.
+                qDataWriter.QAData1[qDataIndex, 2] = a;
+                // Then comes point value.
+                qDataWriter.QAData1[qDataIndex, 3] = ptVal.ToString();
+            }
+            else
+            {
+                // Category goes first in a row.
+                qDataWriter.QAData2[qDataIndex, 0] = qDataWriter.Categories[qaCatIndex];
+                // Then comes question.
+                qDataWriter.QAData2[qDataIndex, 1] = q;
+                // Then comes answer.
+                qDataWriter.QAData2[qDataIndex, 2] = a;
+                // Then comes point value.
+                qDataWriter.QAData2[qDataIndex, 3] = ptVal.ToString();
+            }
 
             Debug.Log("Row entered");
 
@@ -174,8 +188,12 @@ public class EnterQAsMenu : MonoBehaviour
 
             }
 
-            // Update prompt so that user knows what to enter before they click next the next time.
-            enterQ.SetText(enterQBaseTxt + " for category " + qDataWriter.Categories[qaCatIndex] + ", point value " + ptVal.ToString());
+            if (!roundChange)
+            {
+                // Update prompt so that user knows what to enter before they click next the next time.
+                enterQ.SetText(enterQBaseTxt + " for category " + qDataWriter.Categories[qaCatIndex] + ", point value " + ptVal.ToString());
+            }
+            
 
         }
 
@@ -186,6 +204,8 @@ public class EnterQAsMenu : MonoBehaviour
             roundChange = false;
             catIndex = 0;
             title.SetText(titleBaseTxt + " - Round " + round.ToString());
+            // Reset categories list within QuestionDataWriter
+            qDataWriter.Categories = new string[NUM_CATS];
         }
     }
 }
