@@ -1,4 +1,4 @@
-"Each line represents a question in to format ""Category", Question, Answer," Score"""
+Each line represents a question in to format Category, Question, Answer, Score
 Math,19+13,32,200
 Science, C stands for?, Carbon,200
 Books, Who wrote Frankenstein?, Mary Shelly,200
@@ -19,7 +19,7 @@ Food,What French pastry is made with choux dough then filled with a cream and to
 Random,A deficiency of what vitamin may lead to dry eyes and night blindness?,Vitamin A,600
 Math,What is the next prime number after 7?,11,800
 Science,The fear of what animal is known as 'arachnophobia'?,Spiders,800
-Books,"What letter was the ""Scarlet Letter?""",A,800
+Books,What letter was the Scarlet Letter?,A,800
 Tech,What operating system do people use the most?,Windows,800
 Food,Which South American country is the world's largest producer of coffee?,Brazil,800
 Random,How many bones are there in a human body?,206,800
