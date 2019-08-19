@@ -51,6 +51,27 @@ public class QuestionBoard : MonoBehaviour
         }
     }
 
+    public void resetForRoundTwo()
+    {
+        //go through the text fields and turn them on if they were off and double the score text
+        TextMeshProUGUI[][] allTexts = { catOneTexts, catTwoTexts, catThreeTexts, catFourTexts, catFiveTexts, catSixTexts };
+
+        for (int i = 0; i < allTexts.Length; i++)
+        {
+            TextMeshProUGUI[] catTexts = allTexts[i];
+
+
+            catButtons[i].interactable = true;
+
+            for (int j = 0; j < catTexts.Length; j++)
+            {
+                TextMeshProUGUI catText = catTexts[j];
+
+                catText.SetText(((j + 1) * 400).ToString());
+            }
+        }
+    }
+
     // We only need this if the player is allowed to choose their own category.
     // NOTE: In Unity, Wheel indices for categories must match QuestionBoard indices for categories.
     public void HandleCategoryClicked(int categIndex)

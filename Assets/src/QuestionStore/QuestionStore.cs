@@ -6,11 +6,11 @@ using System.Linq;
 using System;
 
 public class QuestionStore : MonoBehaviour
-{   
-	public Text sector, sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8, sector9, sector10, sector11;
+{
+    public Text sector, sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8, sector9, sector10, sector11;
 
     private Dictionary<string, Dictionary<int, Question>> questions;
-    private Dictionary<string,int> questionsAnswered;
+    private Dictionary<string, int> questionsAnswered;
 
     private const int CATEGORY_INDEX = 0;
     private const int QUESTION_INDEX = 1;
@@ -19,17 +19,49 @@ public class QuestionStore : MonoBehaviour
 
     void Awake()
     {
-    	questions = new Dictionary<string, Dictionary<int, Question>>();
+        this.loadQuestions("QuestionData");
+    }
+
+
+    public void switchToRoundTwo()
+    {
+        this.loadQuestions("QuestionData2");
+    }
+
+
+    public string[] getCategories(){
+        return this.questions.Keys.ToArray();
+    }
+
+    public Question getQuestion(string category, int pointValue) {
+        //if (pointValue > 1000)
+        //{ 
+        //    return null;
+        //}
+        Debug.Log("Question Store: Getting question " + category + " for " + pointValue);
+
+        this.questionsAnswered[category] = this.questionsAnswered[category] + 1;
+        return  this.questions[category][pointValue];
+    }
+
+    public Dictionary<string, int> getQuestionsAnswered()
+    {
+        return this.questionsAnswered;
+    }
+
+    private void loadQuestions(string fileName)
+    {
+        questions = new Dictionary<string, Dictionary<int, Question>>();
         questionsAnswered = new Dictionary<string, int>();
-		
-    	TextAsset userInput = Resources.Load<TextAsset>("QuestionData2");
-    	string[] data = userInput.text.Split('\n');
+
+        TextAsset userInput = Resources.Load<TextAsset>(fileName);
+        string[] data = userInput.text.Split('\n');
         //Debug.Log(userInput.text);
 
         int catCount = 0;
-        for(int i=0; i < data.Length; i++)
+        for (int i = 0; i < data.Length; i++)
         {
-            if(i > 0) //row 0 is header info
+            if (i > 0) //row 0 is header info
             {
                 string[] questionData = data[i].Split(',');
                 string category = questionData[CATEGORY_INDEX];
@@ -40,11 +72,11 @@ public class QuestionStore : MonoBehaviour
                     if (!questions.ContainsKey(category))
                     {
                         catCount++;
-                        
+
                         questions.Add(category, new Dictionary<int, Question>());
                         questionsAnswered.Add(category, 0);
                     }
-                    
+
                     int score = int.Parse(questionData[SCORE_INDEX]);
                     string questionText = questionData[QUESTION_INDEX];
                     string answer = questionData[ANSWER_INDEX];
@@ -55,38 +87,5 @@ public class QuestionStore : MonoBehaviour
             }
 
         }
-     
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public string[] getCategories(){
-        return this.questions.Keys.ToArray();
-    }
-
-    public Question getQuestion(string category, int pointValue) {
-        if (pointValue > 1000)
-        { 
-            return null;
-        }
-        Debug.Log("Question Store: Getting question " + category + " for " + pointValue);
-
-        this.questionsAnswered[category] = this.questionsAnswered[category] + 1;
-        return  this.questions[category][pointValue];
-    }
-
-    public Dictionary<string, int> getQuestionsAnswered()
-    {
-        return this.questionsAnswered;
     }
 }
