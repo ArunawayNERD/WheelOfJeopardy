@@ -37,7 +37,7 @@ public class Wheel : MonoBehaviour
         sectors.Add(sector11);
 
         // Populate sectors using user input file.
-        TextAsset userInput = Resources.Load<TextAsset>("QuestionData");
+        TextAsset userInput = Resources.Load<TextAsset>("QuestionData2");
         string[] data = userInput.text.Split('\n');
         //Debug.Log(userInput.text);
 
