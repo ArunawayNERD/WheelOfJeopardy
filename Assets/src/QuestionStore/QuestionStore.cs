@@ -22,7 +22,7 @@ public class QuestionStore : MonoBehaviour
     	questions = new Dictionary<string, Dictionary<int, Question>>();
         questionsAnswered = new Dictionary<string, int>();
 		
-    	TextAsset userInput = Resources.Load<TextAsset>("QuestionData2");
+    	TextAsset userInput = Resources.Load<TextAsset>("QuestionData");
     	string[] data = userInput.text.Split('\n');
         //Debug.Log(userInput.text);
 

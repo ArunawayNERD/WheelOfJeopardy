@@ -7,7 +7,7 @@ public class Infobar : MonoBehaviour
 {
     public TextMeshProUGUI round;
     public TextMeshProUGUI spinsLeft;
-    public TextMeshProUGUI winner;
+
     public TextMeshProUGUI currentPlayer;
 
     public void updateRoundInfo(int currentRound, int spinsRemaining)

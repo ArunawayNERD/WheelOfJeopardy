@@ -63,11 +63,6 @@ public class PlayerScoring : MonoBehaviour
         return Players[pNum].RoundOneScore;
     }
 
-    public int GetPlayerScoreRoundTwo(int pNum)
-    {
-        return Players[pNum].RoundTwoScore;
-    }
-
     public int GetPlayerTokenCount(int pNum)
     {
         return Players[pNum].Tokens;
