@@ -20,8 +20,8 @@ public class EnterQAsMenu : MonoBehaviour
 
     public Button next;
 
-    private int catIndex = 1;
-    private int NUM_CATS = 6;
+    private int catIndex;
+    private int NUM_CATS;
     private string input;
     
 
@@ -31,7 +31,13 @@ public class EnterQAsMenu : MonoBehaviour
         this.UpdateVisibility(false);
     }
 
-	public void UpdateVisibility(bool show)
+    private void Start()
+    {
+        catIndex = 1;
+        NUM_CATS = 6;
+    }
+
+    public void UpdateVisibility(bool show)
 	{
 		this.menuGraphics.SetActive(show);
     }
@@ -41,7 +47,7 @@ public class EnterQAsMenu : MonoBehaviour
         if (catIndex <= NUM_CATS)
         {
             input = catInput.GetComponent<Text>().text;
-            print(input);         
+            Debug.Log("Next entered");         
             catIndex++;
             if (catIndex > NUM_CATS)
             {
