@@ -7,6 +7,7 @@ public class WheelArrow : MonoBehaviour
 {
     public GameEngine gameEngine;
     public Wheel wheel;
+    public GameObject wheelGraphics;
 
     public GameObject arrow;
     public float speed = 0;
@@ -38,7 +39,7 @@ public class WheelArrow : MonoBehaviour
 
     void Rotate()
     {
-        wheel.transform.Rotate(0, 0, -speed * Time.deltaTime);
+        wheelGraphics.transform.Rotate(0, 0, -speed * Time.deltaTime);
         if (speed > 0)
         {
             Stop();
