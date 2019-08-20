@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
+using Assets.src.UI;
 
 public class GameEngine : MonoBehaviour
 {
@@ -23,6 +26,7 @@ public class GameEngine : MonoBehaviour
 
     private TokenUse reasonForToken;
     private int pendingTokenScore;
+    private bool enteredDataSrc;
 
     private enum TokenUse {LoseTurn, Incorrect };
 
@@ -72,8 +76,16 @@ public class GameEngine : MonoBehaviour
 
     public void SetDataSrc(bool dataEntered)
     {
-        this.questionStore.DataEntered = true;
+        this.enteredDataSrc = true;
         this.wheel.DataEntered = true;
+        if (this.currentRoundNum == 1)
+        {
+            this.questionStore.switchToEnteredData1();
+        }
+        else
+        {
+            this.questionStore.switchToEnteredData2();
+        }
     }
 
     public void CategorySelected(int categoryIndex)
@@ -229,7 +241,15 @@ public class GameEngine : MonoBehaviour
         if (this.spinsLeftInRound < 1 && this.currentRoundNum == 1) {
             this.currentRoundNum = 2;
             this.spinsLeftInRound = spins;
-            this.questionStore.switchToRoundTwo();
+            if (this.enteredDataSrc)
+            {
+                this.questionStore.switchToEnteredData2();
+            }
+            else
+            {
+                this.questionStore.switchToRoundTwo();
+            }
+            
             this.board.resetForRoundTwo();
 
         } else if (this.spinsLeftInRound < 1 && this.currentRoundNum == 2) {
