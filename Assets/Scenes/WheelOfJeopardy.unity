@@ -2883,7 +2883,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 00:00
+  m_text: 00.00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4102,6 +4102,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652264156552807191, guid: 0672b49c034dcb041a9f9101463e0f49,
+        type: 3}
+      propertyPath: m_text
+      value: 00.00
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652264156552807191, guid: 0672b49c034dcb041a9f9101463e0f49,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652264156552807191, guid: 0672b49c034dcb041a9f9101463e0f49,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4856048641935842337, guid: 0672b49c034dcb041a9f9101463e0f49,
         type: 3}

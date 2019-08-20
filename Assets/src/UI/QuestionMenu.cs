@@ -40,11 +40,7 @@ public class QuestionMenu : MonoBehaviour
         }
         else if (timerActive && timer <= 0.0f)
         {
-            this.timeDisplayed.SetText("00:00");
-            this.timeDisplayed2.SetText("00:00");
-            timer = 0.0f;
-            timerActive = false;
-            this.HandleTimerRunout();
+            this.SwitchToAnswerMode(true);
         }
     }
 
@@ -63,7 +59,7 @@ public class QuestionMenu : MonoBehaviour
 
     public void HandleShowAnswerClicked()
     {
-        this.SwitchToAnswerMode();
+        this.SwitchToAnswerMode(false);
     }
 
     public void HandleShowQuestionClicked()
@@ -77,10 +73,30 @@ public class QuestionMenu : MonoBehaviour
         UpdateVisability(false);
     }
 
+    public void StartTimer()
+    {
+        this.timeDisplayed.SetText("5:00");
+        this.timeDisplayed2.SetText("5:00");
+        timer = 5;
+        timerActive = true;
+    }
+
     public void HandleTimerRunout()
     {
         gameEngine.questionAnswered(0, false);
         UpdateVisability(false);
+    }
+
+    public void ResetTimer(bool timesUp)
+    {
+        this.timeDisplayed.SetText("00:00");
+        this.timeDisplayed2.SetText("00:00");
+        timer = 0.0f;
+        timerActive = false;
+        if (timesUp)
+        {
+            this.HandleTimerRunout();
+        }
     }
     
 	private void ResetMenu()
@@ -115,11 +131,7 @@ public class QuestionMenu : MonoBehaviour
             this.displayText.SetText("");
         }
 
-        // start the timer
-        this.timeDisplayed.SetText("5:00");
-        this.timeDisplayed2.SetText("5:00");
-        timer = 5;
-        timerActive = true;
+        this.StartTimer();
 
         this.showQuestion.gameObject.SetActive(false);
         this.showAnswer.gameObject.SetActive(true);
@@ -127,7 +139,7 @@ public class QuestionMenu : MonoBehaviour
         this.incorrect.gameObject.SetActive(false);
     }
 
-    private void SwitchToAnswerMode()
+    private void SwitchToAnswerMode(bool timesUp)
     {
         this.title.SetText("Answer");
 
@@ -139,10 +151,19 @@ public class QuestionMenu : MonoBehaviour
         {
             this.displayText.SetText("");
         }
-        Debug.Log("This also happens");
 
         this.showAnswer.gameObject.SetActive(false);
-        this.correct.gameObject.SetActive(true);
-        this.incorrect.gameObject.SetActive(true);
+        this.ResetTimer(timesUp);
+
+        if (timesUp) // show answer briefly-not working
+        {
+            //System.DateTime ts = System.DateTime.Now + System.TimeSpan.FromSeconds(3);
+            //do { } while (System.DateTime.Now < ts);
+        }
+        else
+        {
+            this.correct.gameObject.SetActive(true);
+            this.incorrect.gameObject.SetActive(true);
+        }
     }
 }
