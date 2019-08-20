@@ -1,31 +1,31 @@
 Each line represents a question in to format Category, Question, Answer,Score
-Math,19+13,32,400
-Science, C stands for?, Carbon,400
-Books, Who wrote Frankenstein?, Mary Shelly,400
-Tech,What do you use to type on the computer?,Keyboard,400
-Food,What U.S. nonprofit organization sells about 200 million boxes of cookies per year?,The Girl Scouts,400
-Random,What is the official nickname of Texas?,The Lone Star State,400
-Math,20 / 4,5,800
-Science,True or false? The fastest land animal in the world is the zebra?,FALSE,800
-Books,Who chased Moby Dick?,Captain Ahab,800
-Tech,Do you need an Internet browser to go on the Internet?,Yes,800
-Food,What fruit is thrown at the annual food fight festival held in Spain?,Tomato,800
-Random,Name the biggest Island of the world.,Greenland,800
-Math,35 % 6,1,1200
-Science,Pure water has a pH level of around?,7,1200
-Books,Which play by Shakespeare has lovers committing suicide?,Romeo and Juliet,1200
-Tech,What do you call a portable computer?,Laptop,1200
-Food,What French pastry is made with choux dough then filled with a cream and topped with icing?,Eclair,1200
+Math,46+8810,8856,400
+Science,This matter has a definite volume but no shape?,Liquid,400
+Books,Who wrote The Hatchet?,Gary Paulsen,400
+Tech,What does NAS stand for?,Network Area Storage,400
+Food,What does PAM stand for?,Product of Arthur Meyerhoff,400
+Random,What is the drinking age in Venezuela?,The Lone Star State,400
+Math,2Sqrt(2),2.828427,800
+Science,True or false? The fastest land animal in the world is the cheetah?,TRUE,800
+Books,Who wrote Moby Dick?,Herman Melville,800
+Tech,This browser is practically useless and comes with windows,Edge,800
+Food,What temperature does water boil? (F),212,800
+Random,When was Google founded?,9/4/1998,800
+Math,What is the Grothendieck prime number?,57,1200
+Science,How many atoms are in the universe?,10^78 - 10^82,1200
+Books,What year did Shakespeare write Macbeth?,1606,1200
+Tech,What does IMEI stand for?,International Mobile Equipment Identity,1200
+Food,Why are some eggs brown?,Pigments the hens produce,1200
 Random,A deficiency of what vitamin may lead to dry eyes and night blindness?,Vitamin A,1200
-Math,What is the next prime number after 7?,11,1600
-Science,The fear of what animal is known as 'arachnophobia'?,Spiders,1600
-Books,What letter was the ""Scarlet Letter?,A,1600
-Tech,What operating system do people use the most?,Windows,1600
-Food,Which South American country is the world's largest producer of coffee?,Brazil,1600
-Random,How many bones are there in a human body?,206,1600
-Math,True or false? Pi can be correctly written as a fraction.,FALSE,2000
-Science,What is the biggest planet in our solar system?,Jupiter,2000
-Books,What is the Newbery Medal given annually for?,Best Children's Book,2000
-Tech,Does RAM store information about your computer when it is closed?,FALSE,2000
-Food,A poke bowl is a diced raw fish dish that originated in which U.S. state?,Hawaii,2000
-Random,What is the meaning of Y in VIBGYOR?,Yellow,2000
+Math,Is 57 a prime number?,No,1600
+Science,How many rings are there around Jupiter?,4,1600
+Books,How many Lord of the Rings books are there?,3,1600
+Tech,What does RHEL stand for?,Red Hat Enterprise Linux,1600
+Food,Where did sushi originate?,Japan,1600
+Random,How many colors are there in the world?,16581375,1600
+Math,57Sqrt(2),80.61017,2000
+Science,What is the smallest planet in our solar system?,Mercury,2000
+Books,How many books did Steven King write?,88,2000
+Tech,What does LRU stand for in computer architecture?,Least recently used,2000
+Food,Where did tomatoes originate?,The Andes,2000
+Random,A federal law mandating that all electronic and IT used by the federal government must be accessible to those with disabilities?,Section 508,2000
