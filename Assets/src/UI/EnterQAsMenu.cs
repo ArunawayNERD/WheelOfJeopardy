@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class EnterQAsMenu : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class EnterQAsMenu : MonoBehaviour
     private string enterCatBaseTxt;
     private string enterQBaseTxt;
     private string titleBaseTxt;
+    private bool csvWritten;
 
 
 
@@ -52,6 +54,8 @@ public class EnterQAsMenu : MonoBehaviour
 
     private void Start()
     {
+        csvWritten = false;
+
         catIndex = 1;
         NUM_CATS = 6;
 
@@ -68,7 +72,7 @@ public class EnterQAsMenu : MonoBehaviour
         titleBaseTxt = title.text;
         title.SetText(titleBaseTxt + " - Round 1");
 
-        qDataWriter = new QuestionDataWriter(NUM_CATS, NUM_QS);
+        qDataWriter = new QuestionDataWriter(NUM_CATS, NUM_QS, gameEngine);
 
         round = 1;
         roundChange = false;
@@ -83,7 +87,6 @@ public class EnterQAsMenu : MonoBehaviour
 
     public void HandleNextClicked()
     {
-        
         catIndex++;
         // If this conditional passes, accept category input and prompt for next category input. This is done first within a round.
         if (catIndex <= NUM_CATS)
@@ -131,7 +134,7 @@ public class EnterQAsMenu : MonoBehaviour
             // E.g. (cont.) This is important because the CSV goes in descending point-value order. Row is determined both by category and poitns increment.
             for (int i = 0; i < NUM_QS; i++)
             {
-                if (ptVal / ptInc == i)
+                if (ptVal / ptInc - 1 == i)
                 {
                     qDataIndex = qaCatIndex + i * NUM_CATS;
                 }
@@ -181,6 +184,7 @@ public class EnterQAsMenu : MonoBehaviour
                     // Terminate processing by making window inactive and telling QuestionDataWriter to write to csv, then update data source.
                     this.UpdateVisibility(false);
                     qDataWriter.WriteToCSV();
+                    csvWritten = true;
                 }
                 // Otherwise, increase the point value and reset the QA category counter.
                 else
@@ -191,7 +195,7 @@ public class EnterQAsMenu : MonoBehaviour
 
             }
 
-            if (!roundChange)
+            if (!roundChange && !csvWritten)
             {
                 // Update prompt so that user knows what to enter before they click next the next time.
                 enterQ.SetText(enterQBaseTxt + " for cat. " + qDataWriter.Categories[qaCatIndex] + ", pt. val. " + ptVal.ToString());

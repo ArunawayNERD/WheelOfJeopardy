@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
-using Assets.src.UI;
 
 public class GameEngine : MonoBehaviour
 {
@@ -73,6 +70,12 @@ public class GameEngine : MonoBehaviour
         this.playerStats.updatePlayerInfo(this.playerScoring.Players[0],
                                           this.playerScoring.Players[1],
                                           this.playerScoring.Players[2]);
+    }
+
+    public void SetDataSrc(bool dataEntered)
+    {
+        this.questionStore.DataEntered = true;
+        this.wheel.DataEntered = true;
     }
 
     public void CategorySelected(int categoryIndex)

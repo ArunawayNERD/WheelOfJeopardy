@@ -17,12 +17,26 @@ public class QuestionStore : MonoBehaviour
     private const int ANSWER_INDEX = 2;
     private const int SCORE_INDEX = 3;
 
+    private bool dataEntered;
+    private int dataSrcChange = 0;
+
+    public bool DataEntered { get => dataEntered; set => dataEntered = value; }
+
     void Awake()
     {
     	questions = new Dictionary<string, Dictionary<int, Question>>();
         questionsAnswered = new Dictionary<string, int>();
-		
-    	TextAsset userInput = Resources.Load<TextAsset>("QuestionData");
+
+        TextAsset userInput;
+
+        if (dataEntered)
+        {
+            userInput = Resources.Load<TextAsset>("EnteredQuestionData1");
+        }
+        else
+        {
+            userInput = Resources.Load<TextAsset>("QuestionData");
+        }
     	string[] data = userInput.text.Split('\n');
         //Debug.Log(userInput.text);
 
@@ -67,7 +81,53 @@ public class QuestionStore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (dataEntered && dataSrcChange == 0)
+        {
+            this.gameObject.SetActive(false);
+            this.gameObject.SetActive(true);
+            Debug.Log("QuestionStore reactivated with entered data");
+        }
+        //{
+        //    dataSrcChange++;
+
+        //    questions = new Dictionary<string, Dictionary<int, Question>>();
+        //    questionsAnswered = new Dictionary<string, int>();
+
+        //    TextAsset userInput = Resources.Load<TextAsset>("EnteredQuestionData1");
+
+        //    string[] data = userInput.text.Split('\n');
+        //    //Debug.Log(userInput.text);
+
+        //    int catCount = 0;
+        //    for (int i = 0; i < data.Length; i++)
+        //    {
+        //        if (i > 0) //row 0 is header info
+        //        {
+        //            string[] questionData = data[i].Split(',');
+        //            string category = questionData[CATEGORY_INDEX];
+        //            if (!category.Equals("")) // just in case extra space at end of csv input file
+        //            {
+
+        //                //We havent run into this key yet so add its nested dict and update the sectors
+        //                if (!questions.ContainsKey(category))
+        //                {
+        //                    catCount++;
+
+        //                    questions.Add(category, new Dictionary<int, Question>());
+        //                    questionsAnswered.Add(category, 0);
+        //                }
+
+        //                int score = int.Parse(questionData[SCORE_INDEX]);
+        //                string questionText = questionData[QUESTION_INDEX];
+        //                string answer = questionData[ANSWER_INDEX];
+
+
+        //                questions[category].Add(score, new Question(questionText, answer, score, category));
+        //            }
+        //        }
+
+        //    }
+        //}
     }
 
     public string[] getCategories(){
