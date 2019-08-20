@@ -14,7 +14,9 @@ public class GameEngine : MonoBehaviour
     public QuestionBoard board;
     public Infobar infoBar;
     public PlayerStats playerStats;
-    
+    public AudioScript audioScripts;
+    public AudioScript correctAudio;
+
     public List<Sector> sectorList;
 
     public Button spinWheelBtn;
@@ -122,9 +124,9 @@ public class GameEngine : MonoBehaviour
         if(correct)
         {
             Debug.Log("Answer was correct");
+            this.correctAudio.PlayClip();
             playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);
             this.NextTurn();
-            
         }
         else
         {
@@ -190,6 +192,7 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Bankrupt")
         {
+            this.audioScripts.PlayClip();
             Debug.Log("Landed on bankrupt sector -- player loses all their points");
             playerScoring.UpdateActivePlayerScore(-playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
             // Tough luck, kid.

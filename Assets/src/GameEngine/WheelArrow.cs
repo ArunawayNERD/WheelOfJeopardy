@@ -47,7 +47,7 @@ public class WheelArrow : MonoBehaviour
     }
     public void StartSpin()
     {
-        speed = 50;
+        speed = 150;
     }
     public void Stop()
     {
