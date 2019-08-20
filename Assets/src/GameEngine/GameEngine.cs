@@ -33,9 +33,6 @@ public class GameEngine : MonoBehaviour
         this.currentRoundNum = 1;
         this.spinsLeftInRound = 50;
 
-        Debug.Log(this.infoBar);
-        Debug.Log(this.currentRoundNum);
-        Debug.Log(this.spinsLeftInRound);
         this.infoBar.updateRoundInfo(this.currentRoundNum, this.spinsLeftInRound);
 
         // Generate sector list
@@ -88,9 +85,16 @@ public class GameEngine : MonoBehaviour
     {
         int answered = this.questionStore.getQuestionsAnswered()[category];
 
-        if (((200 * answered) + 200) < 1200)
+        if (answered < 5)
         {
-            Question nextQuestion = this.questionStore.getQuestion(category, (200 * answered) + 200);
+            int scoreToGet = (answered + 1) * 200;
+
+            if (this.currentRoundNum > 1)
+            {
+                scoreToGet *= 2;
+            }
+
+            Question nextQuestion = this.questionStore.getQuestion(category, scoreToGet);
             this.questionMenu.ReceiveQuestion(nextQuestion);
         }
     }
@@ -220,4 +224,36 @@ public class GameEngine : MonoBehaviour
         // TODO: CODE TO PROMPT SPINNER BUTTON
     }
 
+    public void CheckRound2() {
+        if (this.spinsLeftInRound < 1 && this.currentRoundNum == 1) {
+            this.currentRoundNum = 2;
+            this.spinsLeftInRound = spins;
+            this.questionStore.switchToRoundTwo();
+            this.board.resetForRoundTwo();
+
+        } else if (this.spinsLeftInRound < 1 && this.currentRoundNum == 2) {
+            this.wheel.gameObject.SetActive(false);
+            this.arrow.gameObject.SetActive(false);
+            this.spinWheelBtn.gameObject.SetActive(false);
+
+            //who won?
+            int player1Score = this.playerScoring.GetPlayerScore(0) + this.playerScoring.GetPlayerScoreRoundTwo(0);
+            int player2Score = this.playerScoring.GetPlayerScore(1) + this.playerScoring.GetPlayerScoreRoundTwo(1);
+            int player3Score = this.playerScoring.GetPlayerScore(2) + this.playerScoring.GetPlayerScoreRoundTwo(2);
+            int ans = Math.Max(Math.Max(player1Score, player2Score), player3Score);
+            String winnerIs;
+            Debug.Log("max is " + Math.Max(Math.Max(player1Score, player2Score), player3Score));
+            if (player1Score == ans) {
+                winnerIs = this.playerScoring.GetPlayerNames()[0];
+            } else if (player2Score == ans) {
+                winnerIs = this.playerScoring.GetPlayerNames()[1];
+            }
+            else {
+                winnerIs = this.playerScoring.GetPlayerNames()[2];
+            }
+
+            this.infoBar.winner.SetText("Winner is " + winnerIs + "!");
+            this.infoBar.winner.gameObject.SetActive(true);
+        }
+    }
 }
