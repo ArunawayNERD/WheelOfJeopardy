@@ -21,7 +21,6 @@ public class QuestionMenu : MonoBehaviour
 
     public AudioScript timesUpAudio;
     public AudioScript countDown;
-    public AudioScript correctAudio;
 
     private Question selectedQuestion;
 

@@ -6215,6 +6215,11 @@ PrefabInstance:
       propertyPath: audioScripts
       value: 
       objectReference: {fileID: 1850166814}
+    - target: {fileID: 8185333773596824657, guid: 9dfe8341bbc85a44c9f3f7f63cc4fca5,
+        type: 3}
+      propertyPath: timesUpAudio
+      value: 
+      objectReference: {fileID: 1850166814}
     - target: {fileID: 8185333773596824670, guid: 9dfe8341bbc85a44c9f3f7f63cc4fca5,
         type: 3}
       propertyPath: m_LocalPosition.x
