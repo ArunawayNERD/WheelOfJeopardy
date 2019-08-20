@@ -15,10 +15,11 @@ public class GameEngine : MonoBehaviour
     public List<Sector> sectorList;
 
     public Button spinWheelBtn;
-
+    public GameObject arrow;
     public Wheel wheel;
     private int currentRoundNum;
     private int spinsLeftInRound;
+    private int spins = 5;
 
     private TokenUse reasonForToken;
     private int pendingTokenScore;
