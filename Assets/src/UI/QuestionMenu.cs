@@ -44,7 +44,7 @@ public class QuestionMenu : MonoBehaviour
             this.timeDisplayed2.SetText("00:00");
             timer = 0.0f;
             timerActive = false;
-            //this.HandleTimerRunout();
+            this.HandleTimerRunout();
         }
     }
 
@@ -116,9 +116,9 @@ public class QuestionMenu : MonoBehaviour
         }
 
         // start the timer
-        this.timeDisplayed.SetText("15:00");
-        this.timeDisplayed2.SetText("15:00");
-        timer = 15;
+        this.timeDisplayed.SetText("5:00");
+        this.timeDisplayed2.SetText("5:00");
+        timer = 5;
         timerActive = true;
 
         this.showQuestion.gameObject.SetActive(false);
