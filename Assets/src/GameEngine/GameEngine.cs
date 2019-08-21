@@ -86,7 +86,7 @@ public class GameEngine : MonoBehaviour
         // Make sure the CSVs have time to be written to.
         while (!questionsWritten)
         {
-            if (File.Exists("C:\\Users\\abate\\Code\\WheelOfJeopardy\\Assets\\Resources\\EnteredQuestionData1.csv"))
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\Assets\\Resources\\EnteredQuestionData1.csv"))
             {
                 Debug.Log("Round 1 entered question data found");
                 questionsWritten = true;
