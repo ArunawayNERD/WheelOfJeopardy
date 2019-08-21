@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using System.Threading;
 
 public class QuestionStore : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class QuestionStore : MonoBehaviour
 
     private void loadQuestions(string fileName)
     {
+
         questions = new Dictionary<string, Dictionary<int, Question>>();
         questionsAnswered = new Dictionary<string, int>();
 

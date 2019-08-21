@@ -76,8 +76,8 @@ public class EnterQAsMenu : MonoBehaviour
 
         round = 1;
         roundChange = false;
-        ptVal = 100;
-        ptInc = 100;
+        ptVal = 200;
+        ptInc = 200;
     }
 
     public void UpdateVisibility(bool show)
@@ -170,19 +170,20 @@ public class EnterQAsMenu : MonoBehaviour
             if (qaCatIndex == NUM_CATS)
             {
                 // If point value suggests the end of round 1, switch to round 2.
-                if (ptVal == 500 && round == 1)
+                if (ptVal == 1000 && round == 1)
                 {
                     roundChange = true;
                     round = 2;
-                    ptVal = 200;
-                    ptInc = 200;
+                    ptVal = 400;
+                    ptInc = 400;
                     qaCatIndex = 0;
                 }
                 // If point value suggests the end of round 2, terminate processing.
-                else if (ptVal == 1000 && round == 2)
+                else if (ptVal == 2000 && round == 2)
                 {
                     // Terminate processing by making window inactive and telling QuestionDataWriter to write to csv, then update data source.
                     this.UpdateVisibility(false);
+                    Debug.Log("Finished receiving questions and answers");
                     qDataWriter.WriteToCSV();
                     csvWritten = true;
                 }

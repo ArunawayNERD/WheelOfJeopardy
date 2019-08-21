@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Assets.src.UI;
+using System.Threading;
+using System.IO;
 
 public class GameEngine : MonoBehaviour
 {
@@ -76,16 +78,26 @@ public class GameEngine : MonoBehaviour
 
     public void SetDataSrc(bool dataEntered)
     {
+        
         this.enteredDataSrc = true;
-        this.wheel.DataEntered = true;
-        if (this.currentRoundNum == 1)
+        bool questionsWritten = false;
+        // Make sure the CSVs have time to be written to.
+        while (!questionsWritten)
         {
-            this.questionStore.switchToEnteredData1();
+            if (this.currentRoundNum == 1 && File.Exists("C:\\Users\\abate\\Code\\WheelOfJeopardy\\Assets\\Resources\\EnteredQuestionData1.csv"))
+            {
+                questionsWritten = true;
+                this.questionStore.switchToEnteredData1();
+                Debug.Log("Round 1 entered question data found");
+            }
+            else if (this.currentRoundNum == 2 && File.Exists("C:\\Users\\abate\\Code\\WheelOfJeopardy\\Assets\\Resources\\EnteredQuestionData2.csv"))
+            {
+                questionsWritten = true;
+                this.questionStore.switchToEnteredData2();
+                Debug.Log("Round 2 entered question data found");
+            }
         }
-        else
-        {
-            this.questionStore.switchToEnteredData2();
-        }
+        this.board.updateCategories();
     }
 
     public void CategorySelected(int categoryIndex)

@@ -27,6 +27,7 @@ public class QuestionDataWriter
         // Write first round data to a CSV
         string dir1 = Directory.GetCurrentDirectory() + "\\Assets\\Resources\\EnteredQuestionData1.csv";
         var csv1 = new StringBuilder();
+        csv1.AppendLine("Each line represents a question in to format Category,Question,Answer,Score");
         for (int i = 0; i < qAData1.GetLength(0); i++)
         {
             var cat = qAData1[i,0];
@@ -41,6 +42,7 @@ public class QuestionDataWriter
         // Write second round data to another CSV
         string dir2 = Directory.GetCurrentDirectory() + "\\Assets\\Resources\\EnteredQuestionData2.csv";
         var csv2 = new StringBuilder();
+        csv2.AppendLine("Each line represents a question in to format Category,Question,Answer,Score");
         for (int i = 0; i < qAData2.GetLength(0); i++)
         {
             var cat = qAData2[i,0];
