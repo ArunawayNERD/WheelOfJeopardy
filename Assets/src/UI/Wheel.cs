@@ -18,7 +18,35 @@ public class Wheel : MonoBehaviour
     //public GameObject menuGraphics;
     public Button spinWheel;
 
+    private bool dataEntered;
+    private int dataSrcChange = 0;
+
+    public bool DataEntered { get => dataEntered; set => dataEntered = value; }
+
     void Awake()
+    {
+        this.loadNewSectors("QuestionData");
+    }
+
+    public void switchToRoundTwo()
+    {
+        Debug.Log("Switching wheel to match round 2 categories.");
+        this.loadNewSectors("QuestionData2");
+    }
+
+    public void switchToEnteredData1()
+    {
+        Debug.Log("Switching wheel to match newly entered categories.");
+        this.loadNewSectors("EnteredQuestionData1");
+    }
+    public void switchToEnteredData2()
+    {
+        Debug.Log("Switching wheel to match newly entered categories.");
+        this.loadNewSectors("EnteredQuestionData2");
+    }
+
+
+    void loadNewSectors(string fileName)
     {
         questions = new Dictionary<string, Dictionary<int, Question>>();
         sectorObjs = new Sector[12];
@@ -37,7 +65,8 @@ public class Wheel : MonoBehaviour
         sectors.Add(sector11);
 
         // Populate sectors using user input file.
-        TextAsset userInput = Resources.Load<TextAsset>("QuestionData2");
+        TextAsset userInput = Resources.Load<TextAsset>(fileName);
+
         string[] data = userInput.text.Split('\n');
         //Debug.Log(userInput.text);
 
@@ -74,6 +103,7 @@ public class Wheel : MonoBehaviour
         sectorObjs[10] = new Sector("Opponent's choice", "Non-category");
         sectors[11].text = "Double your Score";
         sectorObjs[11] = new Sector("Double your Score", "Non-category");
+        
     }
 
     internal string GetCategory(int categIndex)
@@ -92,4 +122,5 @@ public class Wheel : MonoBehaviour
     {
         
     }
+        
 }
