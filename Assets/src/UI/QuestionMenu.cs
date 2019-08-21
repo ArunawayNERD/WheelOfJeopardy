@@ -75,22 +75,22 @@ public class QuestionMenu : MonoBehaviour
 
     public void StartTimer()
     {
-        this.timeDisplayed.SetText("5:00");
-        this.timeDisplayed2.SetText("5:00");
+        this.timeDisplayed.SetText("5.00");
+        this.timeDisplayed2.SetText("5.00");
         timer = 5;
         timerActive = true;
     }
 
     public void HandleTimerRunout()
     {
-        gameEngine.questionAnswered(0, false);
+        gameEngine.questionAnswered(this.selectedQuestion.points, false);
         UpdateVisability(false);
     }
 
     public void ResetTimer(bool timesUp)
     {
-        this.timeDisplayed.SetText("00:00");
-        this.timeDisplayed2.SetText("00:00");
+        this.timeDisplayed.SetText("00.00");
+        this.timeDisplayed2.SetText("00.00");
         timer = 0.0f;
         timerActive = false;
         if (timesUp)
