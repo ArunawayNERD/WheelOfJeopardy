@@ -80,21 +80,18 @@ public class GameEngine : MonoBehaviour
     {
         
         this.enteredDataSrc = true;
+        // Entering questions results in a reset to round 1.
+        this.currentRoundNum = 1;
         bool questionsWritten = false;
         // Make sure the CSVs have time to be written to.
         while (!questionsWritten)
         {
-            if (this.currentRoundNum == 1 && File.Exists("C:\\Users\\abate\\Code\\WheelOfJeopardy\\Assets\\Resources\\EnteredQuestionData1.csv"))
+            if (File.Exists("C:\\Users\\abate\\Code\\WheelOfJeopardy\\Assets\\Resources\\EnteredQuestionData1.csv"))
             {
+                Debug.Log("Round 1 entered question data found");
                 questionsWritten = true;
                 this.questionStore.switchToEnteredData1();
-                Debug.Log("Round 1 entered question data found");
-            }
-            else if (this.currentRoundNum == 2 && File.Exists("C:\\Users\\abate\\Code\\WheelOfJeopardy\\Assets\\Resources\\EnteredQuestionData2.csv"))
-            {
-                questionsWritten = true;
-                this.questionStore.switchToEnteredData2();
-                Debug.Log("Round 2 entered question data found");
+                this.wheel.switchToEnteredData1();
             }
         }
         this.board.updateCategories();
@@ -256,10 +253,12 @@ public class GameEngine : MonoBehaviour
             if (this.enteredDataSrc)
             {
                 this.questionStore.switchToEnteredData2();
+                this.wheel.switchToEnteredData2();
             }
             else
             {
                 this.questionStore.switchToRoundTwo();
+                this.wheel.switchToRoundTwo();
             }
             
             this.board.resetForRoundTwo();
