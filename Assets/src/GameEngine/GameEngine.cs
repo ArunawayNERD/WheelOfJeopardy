@@ -16,7 +16,12 @@ public class GameEngine : MonoBehaviour
     public QuestionBoard board;
     public Infobar infoBar;
     public PlayerStats playerStats;
-    
+    public AudioScript bankruptAudio;
+    public AudioScript correctAudio;
+    public AudioScript doubleAudio;
+    public AudioScript winnerAudio;
+    public AudioScript incorrectAudio;
+
     public List<Sector> sectorList;
 
     public Button spinWheelBtn;
@@ -161,10 +166,12 @@ public class GameEngine : MonoBehaviour
         if(correct)
         {
             Debug.Log("Answer was correct");
-            playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);           
+            this.correctAudio.PlayClip();
+            playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);
         }
         else
         {
+            this.incorrectAudio.PlayClip();
             // Uh oh wrOng answer you get negative points (unless you use token).
             // TODO: implement token usage option in UI.
             Debug.Log("Answer was incorrect -- giving choice of using token -- if they have one.");
@@ -227,6 +234,7 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Bankrupt")
         {
+            this.bankruptAudio.PlayClip();
             Debug.Log("Landed on bankrupt sector -- player loses all their points");
             playerScoring.UpdateActivePlayerScore(-playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
             // Tough luck, kid.
@@ -245,7 +253,7 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Double your Score")
         {
-
+            this.doubleAudio.PlayClip();
             playerScoring.UpdateActivePlayerScore(playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
             this.NextTurn();
         }
@@ -297,6 +305,7 @@ public class GameEngine : MonoBehaviour
                 winnerIs = this.playerScoring.GetPlayerNames()[2];
             }
 
+            this.winnerAudio.PlayClip();
             this.infoBar.winner.SetText("Winner is " + winnerIs + "!");
             this.infoBar.winner.gameObject.SetActive(true);
         }

@@ -19,6 +19,9 @@ public class QuestionMenu : MonoBehaviour
     public Button incorrect;
     public Button showQuestion;
 
+    public AudioScript timesUpAudio;
+    public AudioScript countDown;
+
     private Question selectedQuestion;
 
     private float timer;
@@ -80,13 +83,13 @@ public class QuestionMenu : MonoBehaviour
         timer = 5;
         timerActive = true;
     }
-
+    
     public void HandleTimerRunout()
     {
         gameEngine.handleTimerRunOut();
         UpdateVisability(false);
     }
-
+    
     public void ResetTimer(bool timesUp)
     {
         this.timeDisplayed.SetText("00.00");
@@ -95,7 +98,9 @@ public class QuestionMenu : MonoBehaviour
         timerActive = false;
         if (timesUp)
         {
-            this.HandleTimerRunout();
+            this.timesUpAudio.PlayClip();
+            gameEngine.questionAnswered(0, false);
+            UpdateVisability(false);
         }
     }
     
@@ -125,6 +130,7 @@ public class QuestionMenu : MonoBehaviour
         if (this.selectedQuestion != null)
         {
             this.displayText.SetText(selectedQuestion.question);
+           // this.countdown.PlayClip();
         }
         else
         {
