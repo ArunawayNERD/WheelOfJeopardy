@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Assets.src.UI;
+using System.Threading;
+using System.IO;
 
 public class GameEngine : MonoBehaviour
 {
@@ -28,6 +30,7 @@ public class GameEngine : MonoBehaviour
 
     private TokenUse reasonForToken;
     private int pendingTokenScore;
+    private bool enteredDataSrc;
 
     private enum TokenUse {LoseTurn, Incorrect };
 
@@ -37,7 +40,7 @@ public class GameEngine : MonoBehaviour
     {
     	//Populate the round counter and spin counter
         this.currentRoundNum = 1;
-        this.spinsLeftInRound = spins;
+        this.spinsLeftInRound = 50;
 
         this.infoBar.updateRoundInfo(this.currentRoundNum, this.spinsLeftInRound);
 
@@ -73,6 +76,27 @@ public class GameEngine : MonoBehaviour
         this.playerStats.updatePlayerInfo(this.playerScoring.Players[0],
                                           this.playerScoring.Players[1],
                                           this.playerScoring.Players[2]);
+    }
+
+    public void SetDataSrc(bool dataEntered)
+    {
+        
+        this.enteredDataSrc = true;
+        // Entering questions results in a reset to round 1.
+        this.currentRoundNum = 1;
+        bool questionsWritten = false;
+        // Make sure the CSVs have time to be written to.
+        while (!questionsWritten)
+        {
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\Assets\\Resources\\EnteredQuestionData1.csv"))
+            {
+                Debug.Log("Round 1 entered question data found");
+                questionsWritten = true;
+                this.questionStore.switchToEnteredData1();
+                this.wheel.switchToEnteredData1();
+            }
+        }
+        this.board.updateCategories();
     }
 
     public void CategorySelected(int categoryIndex)
@@ -148,7 +172,7 @@ public class GameEngine : MonoBehaviour
                 this.NextTurn();
             }
         }
-        CheckRound2();
+
     }
 
     public string[] getQuestionCategories()
@@ -180,15 +204,15 @@ public class GameEngine : MonoBehaviour
             else
             {
                 this.NextTurn();
-                CheckRound2();
             }
+
+
         }
         else if (sector.Name == "Free turn")
         {
             Debug.Log("Landed on free turn sector -- player given additional token");
             playerScoring.ActivePlayer.AddToken();
             this.NextTurn();
-            CheckRound2();
         }
         else if (sector.Name == "Bankrupt")
         {
@@ -197,7 +221,6 @@ public class GameEngine : MonoBehaviour
             playerScoring.UpdateActivePlayerScore(-playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
             // Tough luck, kid.
             this.NextTurn();
-            CheckRound2();
         }
         else if (sector.Name == "Player's choice")
         {
@@ -212,9 +235,9 @@ public class GameEngine : MonoBehaviour
         }
         else if (sector.Name == "Double your Score")
         {
+
             playerScoring.UpdateActivePlayerScore(playerScoring.GetActivePlayerScore(currentRoundNum), currentRoundNum);
             this.NextTurn();
-            CheckRound2();
         }
 
     }
@@ -230,7 +253,17 @@ public class GameEngine : MonoBehaviour
         if (this.spinsLeftInRound < 1 && this.currentRoundNum == 1) {
             this.currentRoundNum = 2;
             this.spinsLeftInRound = spins;
-            this.questionStore.switchToRoundTwo();
+            if (this.enteredDataSrc)
+            {
+                this.questionStore.switchToEnteredData2();
+                this.wheel.switchToEnteredData2();
+            }
+            else
+            {
+                this.questionStore.switchToRoundTwo();
+                this.wheel.switchToRoundTwo();
+            }
+            
             this.board.resetForRoundTwo();
 
         } else if (this.spinsLeftInRound < 1 && this.currentRoundNum == 2) {

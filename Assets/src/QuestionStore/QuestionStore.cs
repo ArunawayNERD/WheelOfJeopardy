@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using System.Threading;
 
 public class QuestionStore : MonoBehaviour
 {
@@ -26,6 +27,15 @@ public class QuestionStore : MonoBehaviour
     public void switchToRoundTwo()
     {
         this.loadQuestions("QuestionData2");
+    }
+
+    public void switchToEnteredData1()
+    {
+        this.loadQuestions("EnteredQuestionData1");
+    }
+    public void switchToEnteredData2()
+    {
+        this.loadQuestions("EnteredQuestionData2");
     }
 
 
@@ -51,11 +61,13 @@ public class QuestionStore : MonoBehaviour
 
     private void loadQuestions(string fileName)
     {
+
         questions = new Dictionary<string, Dictionary<int, Question>>();
         questionsAnswered = new Dictionary<string, int>();
 
         TextAsset userInput = Resources.Load<TextAsset>(fileName);
-        string[] data = userInput.text.Split('\n');
+        
+    	string[] data = userInput.text.Split('\n');
         //Debug.Log(userInput.text);
 
         int catCount = 0;
