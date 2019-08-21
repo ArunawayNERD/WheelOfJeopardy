@@ -22,17 +22,20 @@ public class QuestionBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Get the question data
+
+        updateCategories();
+
+
+    }
+
+    public void updateCategories()
+    {
         string[] categories = gameEngine.getQuestionCategories();
 
-        for(int i = 0; i < categories.Length; i++)
+        for (int i = 0; i < categories.Length; i++)
         {
             headers[i].SetText(categories[i]);
         }
-
-        //Uncommented for now for testing
-        //  this.setBoardInteractable(false);
-
     }
 
     public void setBoardInteractable(bool[] interactable)
