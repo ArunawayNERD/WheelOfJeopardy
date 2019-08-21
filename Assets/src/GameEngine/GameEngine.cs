@@ -161,9 +161,7 @@ public class GameEngine : MonoBehaviour
         if(correct)
         {
             Debug.Log("Answer was correct");
-            playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);
-            this.NextTurn();
-            
+            playerScoring.UpdateActivePlayerScore(qPts, currentRoundNum);           
         }
         else
         {
