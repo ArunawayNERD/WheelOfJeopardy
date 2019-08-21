@@ -83,7 +83,7 @@ public class QuestionMenu : MonoBehaviour
 
     public void HandleTimerRunout()
     {
-        gameEngine.questionAnswered(this.selectedQuestion.points, false);
+        gameEngine.handleTimerRunOut();
         UpdateVisability(false);
     }
 

@@ -30,7 +30,7 @@ public class GameEngine : MonoBehaviour
     private int pendingTokenScore;
     private bool enteredDataSrc;
 
-    private enum TokenUse {LoseTurn, Incorrect };
+    private enum TokenUse {LoseTurn, Incorrect, Timer};
 
     public int CurrentRoundNum { get => currentRoundNum; set => currentRoundNum = value; }
 
@@ -118,6 +118,21 @@ public class GameEngine : MonoBehaviour
 
             Question nextQuestion = this.questionStore.getQuestion(category, scoreToGet);
             this.questionMenu.ReceiveQuestion(nextQuestion);
+        }
+    }
+
+    public void handleTimerRunOut()
+    {
+        if (playerScoring.ActivePlayer.GetTokenCount() > 0)
+        {
+
+            this.reasonForToken = TokenUse.Timer;
+            this.tokenMenu.UpdateVisability(true);
+
+        }
+        else
+        {
+            this.NextTurn();
         }
     }
 
