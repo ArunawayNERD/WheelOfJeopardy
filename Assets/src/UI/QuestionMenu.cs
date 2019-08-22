@@ -80,7 +80,7 @@ public class QuestionMenu : MonoBehaviour
     {
         this.timeDisplayed.SetText("5.00");
         this.timeDisplayed2.SetText("5.00");
-        timer = 5;
+        timer = 15;
         timerActive = true;
     }
     
