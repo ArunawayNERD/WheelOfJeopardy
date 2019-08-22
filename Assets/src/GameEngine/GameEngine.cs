@@ -29,7 +29,7 @@ public class GameEngine : MonoBehaviour
     public Wheel wheel;
     private int currentRoundNum;
     private int spinsLeftInRound;
-    private int spins = 50;
+    private int spins = 10;
 
     private TokenUse reasonForToken;
     private int pendingTokenScore;
