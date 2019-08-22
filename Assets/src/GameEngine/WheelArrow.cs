@@ -25,10 +25,10 @@ public class WheelArrow : MonoBehaviour
     {
 
 
-        Debug.Log(col.gameObject.GetComponent<Text>().text);
+        Debug.Log(col.gameObject.transform.parent.GetComponent<Text>().text);
         for (int i = 0; i < gameEngine.sectorList.Count; i++)
         {
-            if (gameEngine.sectorList[i].name == col.gameObject.GetComponent<Text>().text)
+            if (gameEngine.sectorList[i].name == col.gameObject.transform.parent.GetComponent<Text>().text)
             {
                 Debug.Log(gameEngine.sectorList[i].name + gameEngine.sectorList[i].type);
                 gameEngine.SectorLandedOn(gameEngine.sectorList[i]);
@@ -47,7 +47,7 @@ public class WheelArrow : MonoBehaviour
     }
     public void StartSpin()
     {
-        speed = 50;
+        speed = 150;
     }
     public void Stop()
     {
